@@ -41,8 +41,14 @@ let photos = [
     src: "https://live.staticflickr.com/779/32593766952_cec693cfd1_b.jpg"
   }
 ];
-<button>
-  {" "}
-  Click to open LightBox <Lightbox photos={photos} img={null} />
-</button>;
+
+initialState = { selectedImg: null };
+<div>
+  <button onClick={() => setState({ selectedImg: 0 })}>Open lightbox</button>
+  <Ligthbox
+    photos={photos}
+    img={state.selectedImg}
+    close={() => setState({ selectedImg: null })}
+  />
+</div>;
 ```
