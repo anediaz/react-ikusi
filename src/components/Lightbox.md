@@ -5,15 +5,15 @@ import Lightbox from "./Lightbox";
 
 let photos = [
   {
-    id: 27944068095,
-    url_l: "https://live.staticflickr.com/7426/27944068095_bc5d213883_b.jpg"
+    id: "27944068095",
+    src: "https://live.staticflickr.com/7426/27944068095_bc5d213883_b.jpg"
   },
   {
-    id: 27764775600,
+    id: "27764775600",
     src: "https://live.staticflickr.com/7683/27764775600_29273ee817_b.jpg"
   },
   {
-    id: 27944070795,
+    id: "27944070795",
     src: "https://live.staticflickr.com/7109/27944070795_cbbbce5fd6_b.jpg"
   },
   {
@@ -41,6 +41,8 @@ let photos = [
     src: "https://live.staticflickr.com/779/32593766952_cec693cfd1_b.jpg"
   }
 ];
-
-<Lightbox photos={photos} />;
+<button>
+  {" "}
+  Click to open LightBox <Lightbox photos={photos} img={null} />
+</button>;
 ```

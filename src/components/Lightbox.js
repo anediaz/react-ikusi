@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -54,35 +55,56 @@ const Button = styled.span`
   }
 `;
 
-const Ligthbox = ({ img, onClose, photos }) => {
+const propTypes = {
+  img: PropTypes.number,
+  photos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      src: PropTypes.string.isRequired
+    })
+  ),
+  onClose: PropTypes.func
+};
+
+const defaultProps = {
+  img: null,
+  photos: [],
+  onClose: () => {}
+};
+
+const Ligthbox = ({ img, photos, close }) => {
   const [imgId, setImgId] = useState(null);
   useEffect(() => {
     setImgId(img);
   }, [img]);
+  const isActive = () => imgId !== null;
   const hasNext = imgId !== null && imgId < photos.length - 1;
   const hasPrev = imgId !== null && imgId > 0;
-  const previousText = (hasPrev && "\x3C") || "";
-  const nextText = (hasNext && "\x3E") || "";
   const onNext = () => hasNext && setImgId(imgId + 1);
   const onPrev = () => hasPrev && setImgId(imgId - 1);
+  const onClose = () => {
+    setImgId(null);
+    close();
+  };
   return (
-    <Wrapper isActive={imgId !== null}>
+    <Wrapper isActive={isActive()}>
       <Modal>
-        <Button onClick={() => onClose()} fontSize="big">
+        <Button onClick={onClose} fontSize="big">
           ×
         </Button>
       </Modal>
       <Content>
         <ButtonContainer>
-          <Button onClick={() => onPrev()}>{previousText}</Button>
+          <Button onClick={() => onPrev()}>{(hasPrev && "\x3C") || ""}</Button>
         </ButtonContainer>
-        {imgId !== null ? <Image src={photos[imgId].src} alt="" /> : ""}
+        {imgId !== null && <Image src={photos[imgId].src} alt="" />}
         <ButtonContainer>
-          <Button onClick={() => onNext()}>{nextText}</Button>
+          <Button onClick={() => onNext()}>{(hasNext && "\x3E") || ""}</Button>
         </ButtonContainer>
       </Content>
     </Wrapper>
   );
 };
-
+Ligthbox.propTypes = propTypes;
+Ligthbox.defaultProps = defaultProps;
 export default Ligthbox;
