@@ -5,21 +5,21 @@ import Gallery from "./Gallery";
 
 let photos = [
   {
-    id: 27944068095,
+    id: "27944068095",
     url_n: "https://live.staticflickr.com/7426/27944068095_bc5d213883_n.jpg",
     url_l: "https://live.staticflickr.com/7426/27944068095_bc5d213883_b.jpg",
     height_n: 213,
     width_n: 320
   },
   {
-    id: 27764775600,
+    id: "27764775600",
     url_n: "https://live.staticflickr.com/7683/27764775600_29273ee817_n.jpg",
     url_l: "https://live.staticflickr.com/7683/27764775600_29273ee817_b.jpg",
     height_n: 240,
     width_n: 320
   },
   {
-    id: 27944070795,
+    id: "27944070795",
     url_n: "https://live.staticflickr.com/7109/27944070795_cbbbce5fd6_n.jpg",
     url_l: "https://live.staticflickr.com/7109/27944070795_cbbbce5fd6_b.jpg",
     height_n: 240,

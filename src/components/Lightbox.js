@@ -63,13 +63,13 @@ const propTypes = {
       src: PropTypes.string.isRequired
     })
   ),
-  onClose: PropTypes.func
+  close: PropTypes.func
 };
 
 const defaultProps = {
   img: null,
   photos: [],
-  onClose: () => {}
+  close: () => {}
 };
 
 const Ligthbox = ({ img, photos, close }) => {
