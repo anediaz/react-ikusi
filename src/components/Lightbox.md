@@ -41,10 +41,20 @@ let photos = [
     src: "https://live.staticflickr.com/779/32593766952_cec693cfd1_b.jpg"
   }
 ];
-
+const buttonStyle = {
+  color: "#fff",
+  textDecoration: "none",
+  background: "#60a3bc",
+  padding: "20px",
+  borderRadius: "50px",
+  display: "inline-block",
+  border: "none"
+};
 initialState = { selectedImg: null };
 <div>
-  <button onClick={() => setState({ selectedImg: 0 })}>Open lightbox</button>
+  <button style={buttonStyle} onClick={() => setState({ selectedImg: 0 })}>
+    Open lightbox
+  </button>
   <Ligthbox
     photos={photos}
     img={state.selectedImg}

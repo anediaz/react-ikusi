@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import _ from "underscore";
 import styled from "styled-components";
-import Loader from "./Loader";
+import Loader from "../utils/Loader";
 import Ligthbox from "./Lightbox";
 
 const propTypes = {
