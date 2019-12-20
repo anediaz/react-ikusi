@@ -60,14 +60,14 @@ const DEFAULT_MARGIN = 1;
 
 const getChosenConfiguration = (configurations, width) => {
   const propsConfiguration = configurations.find(
-    c =>
-      ((c.minWidth && c.minWidth <= width) || !c.minWidth) &&
-      ((c.maxWidth && c.maxWidth >= width) || !c.maxWidth)
+    ({ minWidth, maxWidth }) =>
+      ((minWidth && minWidth <= width) || !minWidth) &&
+      ((maxWidth && maxWidth >= width) || !maxWidth)
   );
   return {
     width,
-    cols: propsConfiguration ? propsConfiguration.cols : DEFAULT_COLS,
-    margin: propsConfiguration ? propsConfiguration.margin : DEFAULT_MARGIN
+    cols: propsConfiguration.cols || DEFAULT_COLS,
+    margin: propsConfiguration.margin || DEFAULT_MARGIN
   };
 };
 
@@ -78,7 +78,7 @@ const Gallery = ({ photos, photoInfos, configurations, withLightbox }) => {
 
   useEffect(() => {
     const getWidth = () => {
-      const width = ref.current ? ref.current.offsetWidth : 0;
+      const width = ref.current.offsetWidth || 0;
       return width;
     };
     setConfiguration(getChosenConfiguration(configurations, getWidth()));
