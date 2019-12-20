@@ -97,7 +97,7 @@ const Ligthbox = ({ img, photos, close }) => {
         <ButtonContainer>
           <Button onClick={() => onPrev()}>{(hasPrev && "\x3C") || ""}</Button>
         </ButtonContainer>
-        {imgId !== null && <Image src={photos[imgId].src} alt="" />}
+        {isActive() && <Image src={photos[imgId].src} alt="" />}
         <ButtonContainer>
           <Button onClick={() => onNext()}>{(hasNext && "\x3E") || ""}</Button>
         </ButtonContainer>
