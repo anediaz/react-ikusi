@@ -34,7 +34,7 @@ const Content = styled.div`
 `;
 
 const Image = styled.img`
-  height: 100%;
+  width: calc(100% - 120px);
   margin: 0 auto;
 `;
 
