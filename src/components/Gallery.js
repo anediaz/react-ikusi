@@ -74,24 +74,31 @@ const getChosenConfiguration = (configurations, width) => {
 const Gallery = ({ photos, photoInfos, configurations, withLightbox }) => {
   const ref = useRef(null);
   const [selectedImgId, setSelectedImgId] = useState(null);
-  const [configuration, setConfiguration] = useState(configurations[0]);
+  const [configuration, setConfiguration] = useState(null);
 
+  const getWidth = () => {
+    return ref.current.offsetWidth || 0;
+  };
   useEffect(() => {
-    const getWidth = () => {
-      const width = ref.current.offsetWidth || 0;
-      return width;
-    };
-    setConfiguration(getChosenConfiguration(configurations, getWidth()));
     const handleResize = _.debounce(
       () =>
         setConfiguration(getChosenConfiguration(configurations, getWidth())),
       400
     );
     window.addEventListener("resize", handleResize);
+    setConfiguration(getChosenConfiguration(configurations, getWidth()));
     return () => window.removeEventListener("resize", handleResize);
   }, [configurations]);
 
   const closeLightbox = () => setSelectedImgId(null);
+  const next = () =>
+    selectedImgId < photos.length ? setSelectedImgId(selectedImgId + 1) : null;
+  const prev = () =>
+    selectedImgId > 0 ? setSelectedImgId(selectedImgId - 1) : null;
+  const displayLightbox = index =>
+    index !== null && photos.length >= index && photos[index]
+      ? photos[index][photoInfos.big]
+      : null;
 
   const getLineHeight = photos => {
     const { width: screenWidth, cols, margin } = configuration;
@@ -118,11 +125,6 @@ const Gallery = ({ photos, photoInfos, configurations, withLightbox }) => {
     }
     return chunks;
   };
-
-  const getLigthboxPhotos = () =>
-    photos.map(p => {
-      return { id: p.id, src: p[photoInfos.big] };
-    });
 
   const chunks = getChunks(photos);
   return (
@@ -154,9 +156,10 @@ const Gallery = ({ photos, photoInfos, configurations, withLightbox }) => {
           )}
           {withLightbox && selectedImgId !== null && (
             <Ligthbox
-              img={selectedImgId}
+              img={displayLightbox(selectedImgId)}
               onClose={closeLightbox}
-              photos={getLigthboxPhotos()}
+              onNext={photos.length - 1 > selectedImgId ? next : null}
+              onPrev={selectedImgId > 0 ? prev : null}
             />
           )}
         </Fragment>
