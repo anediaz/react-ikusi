@@ -28,21 +28,19 @@ const Content = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media (max-width: 375px) {
-    height: 50%;
-  }
 `;
 
 const Image = styled.img`
-  width: calc(100% - 120px);
+  height: 100%;
   margin: 0 auto;
 `;
 
-const ButtonContainer = styled.div``;
+const ButtonContainer = styled.div`
+  width: 5%;
+`;
 const Button = styled.span`
   color: white;
-  font-size: ${props => (props.fontSize === "small" ? "35px" : "55px")};
-  margin: 0 20px;
+  font-size: ${props => (props.fontSize === "small" ? "35px" : "50px")};
   @media (max-width: 768px) {
     font-size: ${props => (props.fontSize === "small" ? "35px" : "40px")};
   }
@@ -72,39 +70,32 @@ const defaultProps = {
   close: () => {}
 };
 
-const Ligthbox = ({ img, photos, close }) => {
-  const [imgId, setImgId] = useState(null);
-  useEffect(() => {
-    setImgId(img);
-  }, [img]);
-  const isActive = () => imgId !== null;
-  const hasNext = imgId !== null && imgId < photos.length - 1;
-  const hasPrev = imgId !== null && imgId > 0;
-  const onNext = () => hasNext && setImgId(imgId + 1);
-  const onPrev = () => hasPrev && setImgId(imgId - 1);
-  const onClose = () => {
-    setImgId(null);
-    close();
-  };
-  return (
-    <Wrapper isActive={isActive()}>
-      <Modal>
-        <Button onClick={onClose} fontSize="big">
-          ×
-        </Button>
-      </Modal>
-      <Content>
+const previousText = "\x3C";
+const nextText = "\x3E";
+
+const Ligthbox = ({ img, onClose, onNext, onPrev }) => (
+  <Wrapper isActive={Boolean(img)}>
+    <Modal>
+      <Button onClick={() => onClose()} fontSize="big">
+        ×
+      </Button>
+    </Modal>
+    <Content>
+      {onPrev ? (
         <ButtonContainer>
-          <Button onClick={() => onPrev()}>{(hasPrev && "\x3C") || ""}</Button>
+          <Button onClick={() => onPrev()}>{previousText}</Button>
         </ButtonContainer>
-        {isActive() && <Image src={photos[imgId].src} alt="" />}
+      ) : null}
+      <Image src={img} alt="" />
+      {onNext ? (
         <ButtonContainer>
-          <Button onClick={() => onNext()}>{(hasNext && "\x3E") || ""}</Button>
+          <Button onClick={() => onNext()}>{nextText}</Button>
         </ButtonContainer>
-      </Content>
-    </Wrapper>
-  );
-};
+      ) : null}
+    </Content>
+  </Wrapper>
+);
+
 Ligthbox.propTypes = propTypes;
 Ligthbox.defaultProps = defaultProps;
 export default Ligthbox;
