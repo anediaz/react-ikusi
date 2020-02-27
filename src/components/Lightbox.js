@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
@@ -63,20 +63,15 @@ const Button = styled.span`
 `;
 
 const propTypes = {
-  img: PropTypes.number,
-  photos: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      src: PropTypes.string.isRequired
-    })
-  ),
-  close: PropTypes.func
+  img: PropTypes.string.isRequired,
+  onClose: PropTypes.func,
+  onNext: PropTypes.func,
+  onPrev: PropTypes.func
 };
 
 const defaultProps = {
   img: null,
-  photos: [],
-  close: () => {}
+  onClose: () => {}
 };
 
 const previousText = "\x3C";

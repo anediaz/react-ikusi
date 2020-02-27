@@ -51,7 +51,7 @@ const LineContainer = styled.div`
 const Item = styled.img`
   height: 100%
     &:hover {
-    cursor: pointer;
+    cursor: ${props => (props.onClick ? "pointer" : "default")};
     opacity: 0.5;
   }
 `;
@@ -72,7 +72,7 @@ const getChosenConfiguration = (configurations, width) => {
   };
 };
 
-const Gallery = ({ photos, photoInfos, configurations, withLightbox }) => {
+const Gallery = ({ photos, configurations, withLightbox }) => {
   const ref = useRef(null);
   const [selectedImgId, setSelectedImgId] = useState(null);
   const [configuration, setConfiguration] = useState(
@@ -147,7 +147,9 @@ const Gallery = ({ photos, photoInfos, configurations, withLightbox }) => {
                       src={p.src}
                       alt=""
                       key={`item-${imgIndex}`}
-                      onClick={() => setSelectedImgId(index)}
+                      onClick={
+                        withLightbox ? () => setSelectedImgId(index) : null
+                      }
                     />
                   );
                 })}
