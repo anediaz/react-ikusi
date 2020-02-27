@@ -6,8 +6,13 @@
   "scripts": {
     "start": "styleguidist server",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
     "storybook": "start-storybook -p 9009",
     "build-storybook": "build-storybook"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anediaz/react-ikusi"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +20,7 @@
   "peerDependencies": {
     "react": "^16.x",
     "react-dom": "^16.x",
+    "react-scripts": "^3.x",
     "styled-components": "^4.x",
     "underscore": "^1.x"
   },
@@ -33,7 +39,8 @@
     "react-styleguidist": "^10.3.2",
     "styled-components": "^4.4.1",
     "underscore": "^1.9.1",
-    "webpack": "^4.41.3"
+    "webpack": "^4.41.3",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {}
 }
