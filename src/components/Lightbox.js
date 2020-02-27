@@ -22,25 +22,34 @@ const Modal = styled.div`
 `;
 
 const Content = styled.div`
-  width: 100%;
-  height: 75%;
   text-align: center;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  @media (orientation: landscape) {
+    height: 75%;
+  }
+  @media (orientation: portrait) {
+    height: 60%;
+  }
 `;
 
 const Image = styled.img`
-  height: 100%;
   margin: 0 auto;
+  height: 100%;
 `;
 
 const ButtonContainer = styled.div`
   width: 5%;
+  @media (orientation: portrait) {
+    margin: 0 auto;
+  }
 `;
 const Button = styled.span`
   color: white;
   font-size: ${props => (props.fontSize === "small" ? "35px" : "50px")};
+  opacity: 0.6;
   @media (max-width: 768px) {
     font-size: ${props => (props.fontSize === "small" ? "35px" : "40px")};
   }
