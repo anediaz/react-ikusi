@@ -14,13 +14,14 @@ const propTypes = {
       margin: PropTypes.number
     })
   ),
-  photos: PropTypes.array,
-  photoInfos: PropTypes.shape({
-    default: PropTypes.string.isRequired,
-    big: PropTypes.string.isRequired,
-    width: PropTypes.string.isRequired,
-    height: PropTypes.string.isRequired
-  }).isRequired,
+  photos: PropTypes.arrayOf(
+    PropTypes.shape({
+      src: PropTypes.string.isRequired,
+      width: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired,
+      bigSrc: PropTypes.string
+    })
+  ).isRequired,
   withLightbox: PropTypes.bool
 };
 
@@ -99,15 +100,14 @@ const Gallery = ({ photos, photoInfos, configurations, withLightbox }) => {
     selectedImgId > 0 ? setSelectedImgId(selectedImgId - 1) : null;
   const displayLightbox = index =>
     index !== null && photos.length >= index && photos[index]
-      ? photos[index][photoInfos.big]
+      ? photos[index].bigSrc || photos[index].src
       : null;
 
   const getLineHeight = photos => {
     const { width: screenWidth, cols, margin } = configuration;
-    const { width: photoWidth, height: photoHeight } = photoInfos;
     let ratioSum = 0;
     photos.forEach(p => {
-      ratioSum += p[photoWidth] / p[photoHeight];
+      ratioSum += p.width / p.height;
     });
     const marginTotalWidth = cols * margin * 2;
     // '-1' because screenWith rounds size to up
@@ -144,7 +144,7 @@ const Gallery = ({ photos, photoInfos, configurations, withLightbox }) => {
                   const index = chunkIndex * configuration.cols + imgIndex;
                   return (
                     <Item
-                      src={p[photoInfos.default]}
+                      src={p.src}
                       alt=""
                       key={`item-${imgIndex}`}
                       onClick={() => setSelectedImgId(index)}
