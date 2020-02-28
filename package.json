@@ -2,45 +2,45 @@
   "name": "react-ikusi",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "scripts": {
     "start": "styleguidist server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "storybook": "start-storybook -p 9009",
-    "build-storybook": "build-storybook"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/anediaz/react-ikusi"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
   "peerDependencies": {
     "react": "^16.x",
     "react-dom": "^16.x",
-    "react-scripts": "^3.x",
-    "styled-components": "^4.x",
-    "underscore": "^1.x"
+    "styled-components": "^4.x"
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
-    "@storybook/addon-actions": "^5.3.14",
-    "@storybook/addon-links": "^5.3.14",
-    "@storybook/addons": "^5.3.14",
-    "@storybook/preset-create-react-app": "^1.5.2",
-    "@storybook/react": "^5.3.14",
     "babel-loader": "^8.0.6",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react-scripts": "^3.4.0",
     "react-styleguidist": "^10.3.2",
-    "styled-components": "^4.4.1",
-    "underscore": "^1.9.1",
-    "webpack": "^4.41.3",
-    "webpack-cli": "^3.3.11"
+    "rollup": "^1.32.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.2.0",
+    "webpack": "^4.41.6"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/runtime": "^7.8.4",
+    "underscore": "^1.9.2"
+  }
 }

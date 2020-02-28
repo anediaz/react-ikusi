@@ -177,4 +177,3 @@ const Gallery = ({ photos, configurations, withLightbox }) => {
 Gallery.propTypes = propTypes;
 Gallery.defaultProps = defaultProps;
 export default Gallery;
-export { Wrapper };
