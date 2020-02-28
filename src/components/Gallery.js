@@ -8,10 +8,10 @@ import Ligthbox from "./Lightbox";
 const propTypes = {
   configurations: PropTypes.arrayOf(
     PropTypes.shape({
-      minWidth: PropTypes.number,
+      cols: PropTypes.number.isRequired,
+      margin: PropTypes.number.isRequired,
       maxWidth: PropTypes.number,
-      cols: PropTypes.number,
-      margin: PropTypes.number
+      minWidth: PropTypes.number
     })
   ),
   photos: PropTypes.arrayOf(
