@@ -12,7 +12,8 @@ React photo displaying component library
 - Responsive
 - Combined with a lightbox to display each image
 
-:bulb: The word **_ikusi_** from the package name react-ikusi means **_see_** in Basque language. Click [here](https://en.wikipedia.org/wiki/Basque_language) for more information.
+:bulb: The word **_ikusi_** from the package name react-ikusi means **_see_** in Basque language.
+Click [here](https://en.wikipedia.org/wiki/Basque_language) for more information.
 
 ## Preview
 
@@ -84,8 +85,8 @@ It determines the number of elements to be displayed per row and their margin.
 \
 An exemple of Gallery's layout :
 
-<img src="https://live.staticflickr.com//65535//49595136583_f326bc8ef5_o.jpg" width="200" alt="layout"/>
+<img src="https://live.staticflickr.com//65535//49595136583_f326bc8ef5_o.jpg" width="300" alt="layout"/>
 
-<img src="https://live.staticflickr.com//65535//49595636006_ce5a2e029a_o.jpg" width="200" alt="layout"/>
-<img src="https:\/\/live.staticflickr.com\/65535\/49595635976_7d941dac9e_o.jpg" width="200"/>
-<img src="https:\/\/live.staticflickr.com\/65535\/49595136513_235b10c43e_o.jpg" width="200"/>
+<img src="https://live.staticflickr.com//65535//49595636006_ce5a2e029a_o.jpg" width="300" alt="layout"/>
+<img src="https:\/\/live.staticflickr.com\/65535\/49595635976_7d941dac9e_o.jpg" width="300"/>
+<img src="https:\/\/live.staticflickr.com\/65535\/49595136513_235b10c43e_o.jpg" width="300"/>
