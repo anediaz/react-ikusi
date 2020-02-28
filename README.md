@@ -43,22 +43,49 @@ const photos = [
   }
 ];
 
-"https://live.staticflickr.com/65535/49595136583_f326bc8ef5_o.jpg", "https://live.staticflickr.com/65535/49595636006_ce5a2e029a_o.jpg", "https://live.staticflickr.com/65535/49595635976_7d941dac9e_o.jpg", "https://live.staticflickr.com/65535/49595136513_235b10c43e_o.jpg", "https://live.staticflickr.com/65535/49595136473_eb70b9a091_o.png"
+"https://live.staticflickr.com/65535/49595136583_f326bc8ef5_o.jpg",
+  "https://live.staticflickr.com/65535/49595636006_ce5a2e029a_o.jpg",
+  "https://live.staticflickr.com/65535/49595635976_7d941dac9e_o.jpg",
+  "https://live.staticflickr.com/65535/49595136513_235b10c43e_o.jpg",
+  "https://live.staticflickr.com/65535/49595136473_eb70b9a091_o.png";
 
+import Gallery from "react-ikusi";
 <Gallery photos={photos} />;
 ```
 
 ## API Documentation
+
+###
+
+<ins>**Details of props 'photos'**</ins>
+
+| Name   | Description                                                   | Type   | Required |
+| ------ | ------------------------------------------------------------- | ------ | -------- |
+| src    | Url source of the original photo                              | string | true     |
+| width  | Original width of the photo in pixels                         | number | true     |
+| height | Original height of the photo in pixels                        | number | true     |
+| bigSrc | Url source of the photo in big size (for Lightbox displaying) | string | false    |
+
+\
+<ins>**Details of props 'configurations'**</ins>
+
+It is an array which may contain multiple elements for different screen sizes.
+
+It determines the number of elements to be displayed per row and their margin.
+
+| Name     | Description                                      | Type   | Required |
+| -------- | ------------------------------------------------ | ------ | -------- |
+| cols     | Number of elements per row                       | number | true     |
+| margin   | Space around each element of the Gallery (px)    | number | true     |
+| minWidth | Minimum width for the current configuration (px) | number | false    |
+| maxWidth | Maximum width for the current configuration (px) | number | false    |
+
+\
+\
+An exemple of Gallery's layout :
 
 <img src="https://live.staticflickr.com//65535//49595136583_f326bc8ef5_o.jpg" width="200" alt="layout"/>
 
 <img src="https://live.staticflickr.com//65535//49595636006_ce5a2e029a_o.jpg" width="200" alt="layout"/>
 <img src="https:\/\/live.staticflickr.com\/65535\/49595635976_7d941dac9e_o.jpg" width="200"/>
 <img src="https:\/\/live.staticflickr.com\/65535\/49595136513_235b10c43e_o.jpg" width="200"/>
-
-To build some examples locally, git clone and run:
-
-```
-npm install
-npm start
-```
