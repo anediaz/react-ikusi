@@ -11,7 +11,7 @@ const propTypes = {
       cols: PropTypes.number.isRequired,
       margin: PropTypes.number.isRequired,
       maxWidth: PropTypes.number,
-      minWidth: PropTypes.number
+      minWidth: PropTypes.number,
     })
   ),
   photos: PropTypes.arrayOf(
@@ -19,19 +19,19 @@ const propTypes = {
       src: PropTypes.string.isRequired,
       width: PropTypes.number.isRequired,
       height: PropTypes.number.isRequired,
-      bigSrc: PropTypes.string
+      bigSrc: PropTypes.string,
     })
   ).isRequired,
-  withLightbox: PropTypes.bool
+  withLightbox: PropTypes.bool,
 };
 
 const defaultProps = {
   configurations: [
     { maxWidth: 340, cols: 4, margin: 1 },
     { maxWidth: 1024, cols: 6, margin: 1 },
-    { minWidth: 1025, cols: 12, margin: 1 }
+    { minWidth: 1025, cols: 12, margin: 1 },
   ],
-  withLightbox: true
+  withLightbox: true,
 };
 
 const Wrapper = styled.div`
@@ -41,17 +41,18 @@ const Wrapper = styled.div`
 
 const LineContainer = styled.div`
   width: 100%;
-  margin: ${props => `${props.margin}px 0`};
+  margin: ${(props) => `${props.margin}px 0`};
   display: flex;
   justify-content: space-evenly;
   text-align: center;
-  height: ${props => `${props.height}px`};
+  height: ${(props) => `${props.height}px`};
 `;
 
 const Item = styled.img`
-  height: 100%
-    &:hover {
-    cursor: ${props => (props.onClick ? "pointer" : "default")};
+  height: 100%;
+  width: auto;
+  &:hover {
+    cursor: ${(props) => (props.onClick ? "pointer" : "default")};
     opacity: 0.5;
   }
 `;
@@ -68,7 +69,7 @@ const getChosenConfiguration = (configurations, width) => {
   return {
     width,
     cols: propsConfiguration.cols || DEFAULT_COLS,
-    margin: propsConfiguration.margin || DEFAULT_MARGIN
+    margin: propsConfiguration.margin || DEFAULT_MARGIN,
   };
 };
 
@@ -98,15 +99,15 @@ const Gallery = ({ photos, configurations, withLightbox }) => {
     selectedImgId < photos.length ? setSelectedImgId(selectedImgId + 1) : null;
   const prev = () =>
     selectedImgId > 0 ? setSelectedImgId(selectedImgId - 1) : null;
-  const displayLightbox = index =>
+  const displayLightbox = (index) =>
     index !== null && photos.length >= index && photos[index]
       ? photos[index].bigSrc || photos[index].src
       : null;
 
-  const getLineHeight = photos => {
+  const getLineHeight = (photos) => {
     const { width: screenWidth, cols, margin } = configuration;
     let ratioSum = 0;
-    photos.forEach(p => {
+    photos.forEach((p) => {
       ratioSum += p.width / p.height;
     });
     const marginTotalWidth = cols * margin * 2;
@@ -115,14 +116,14 @@ const Gallery = ({ photos, configurations, withLightbox }) => {
     return (screenWidth - 1 - marginTotalWidth) / ratioSum;
   };
 
-  const getChunks = photos => {
+  const getChunks = (photos) => {
     const newPhotos = [...photos];
     const chunks = [];
     while (newPhotos.length) {
       const chunkPhotos = newPhotos.splice(0, configuration.cols);
       chunks.push({
         photos: chunkPhotos,
-        lineHeight: getLineHeight(chunkPhotos)
+        lineHeight: getLineHeight(chunkPhotos),
       });
     }
     return chunks;
