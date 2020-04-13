@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  display: ${props => (!props.isActive ? "none" : "flex")};
+  display: ${(props) => (!props.isActive ? "none" : "flex")};
   flex-direction: column;
   justify-content: center;
   height: 100%;
@@ -31,27 +31,29 @@ const Content = styled.div`
     height: 75%;
   }
   @media (orientation: portrait) {
-    height: 60%;
+    max-height: 60%;
   }
 `;
 
 const Image = styled.img`
   margin: 0 auto;
-  height: 100%;
+  max-height: 100%;
+  max-width: 80%;
 `;
 
 const ButtonContainer = styled.div`
   width: 5%;
+  visibility: ${(props) => (!props.enabled ? "hidden" : "visible")};
   @media (orientation: portrait) {
     margin: 0 auto;
   }
 `;
 const Button = styled.span`
   color: white;
-  font-size: ${props => (props.fontSize === "small" ? "35px" : "50px")};
+  font-size: ${(props) => (props.fontSize === "small" ? "35px" : "50px")};
   opacity: 0.6;
   @media (max-width: 768px) {
-    font-size: ${props => (props.fontSize === "small" ? "35px" : "40px")};
+    font-size: ${(props) => (props.fontSize === "small" ? "35px" : "40px")};
   }
 
   &:hover {
@@ -66,39 +68,39 @@ const propTypes = {
   img: PropTypes.string.isRequired,
   onClose: PropTypes.func,
   onNext: PropTypes.func,
-  onPrev: PropTypes.func
+  onPrev: PropTypes.func,
 };
 
 const defaultProps = {
   img: null,
-  onClose: () => {}
+  onClose: () => {},
 };
 
 const previousText = "\x3C";
 const nextText = "\x3E";
 
-const Ligthbox = ({ img, onClose, onNext, onPrev }) => (
-  <Wrapper isActive={Boolean(img)}>
-    <Modal>
-      <Button onClick={() => onClose()} fontSize="big">
-        ×
-      </Button>
-    </Modal>
-    <Content>
-      {onPrev ? (
-        <ButtonContainer>
-          <Button onClick={() => onPrev()}>{previousText}</Button>
+const Ligthbox = ({ img, onClose, onNext, onPrev }) => {
+  return (
+    <Wrapper isActive={Boolean(img)}>
+      <Modal>
+        <Button onClick={() => onClose()} fontSize="big">
+          ×
+        </Button>
+      </Modal>
+      <Content>
+        <ButtonContainer enabled={Boolean(onPrev)}>
+          <Button onClick={() => (onPrev ? onPrev() : null)}>
+            {previousText}
+          </Button>
         </ButtonContainer>
-      ) : null}
-      <Image src={img} alt="" />
-      {onNext ? (
-        <ButtonContainer>
-          <Button onClick={() => onNext()}>{nextText}</Button>
+        <Image src={img} alt="" />
+        <ButtonContainer enabled={Boolean(onNext)}>
+          <Button onClick={() => (onNext ? onNext() : null)}>{nextText}</Button>
         </ButtonContainer>
-      ) : null}
-    </Content>
-  </Wrapper>
-);
+      </Content>
+    </Wrapper>
+  );
+};
 
 Ligthbox.propTypes = propTypes;
 Ligthbox.defaultProps = defaultProps;

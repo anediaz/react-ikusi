@@ -95,10 +95,11 @@ const Gallery = ({ photos, configurations, withLightbox }) => {
   }, [configurations]);
 
   const closeLightbox = () => setSelectedImgId(null);
-  const next = () =>
-    selectedImgId < photos.length ? setSelectedImgId(selectedImgId + 1) : null;
-  const prev = () =>
-    selectedImgId > 0 ? setSelectedImgId(selectedImgId - 1) : null;
+
+  const isFirst = () => selectedImgId === 0;
+  const isLast = () => selectedImgId === photos.length - 1;
+  const next = () => (!isLast() ? setSelectedImgId(selectedImgId + 1) : null);
+  const prev = () => (!isFirst() ? setSelectedImgId(selectedImgId - 1) : null);
   const displayLightbox = (index) =>
     index !== null && photos.length >= index && photos[index]
       ? photos[index].bigSrc || photos[index].src
@@ -129,9 +130,25 @@ const Gallery = ({ photos, configurations, withLightbox }) => {
     return chunks;
   };
 
+  const onKeyDown = (e) => {
+    if (!isNaN(selectedImgId)) {
+      switch (e.keyCode) {
+        case 37: //left
+          !isFirst() ? prev() : null;
+          break;
+        case 39: //right
+          !isLast() ? next() : null;
+          break;
+        case 27: //ESC
+          closeLightbox();
+          break;
+      }
+    }
+  };
+
   const chunks = getChunks(photos);
   return (
-    <Wrapper ref={ref}>
+    <Wrapper ref={ref} onKeyDown={onKeyDown} tabIndex="0">
       {photos.length ? (
         <Fragment>
           {chunks.map((chunk, chunkIndex) =>
@@ -163,8 +180,8 @@ const Gallery = ({ photos, configurations, withLightbox }) => {
             <Ligthbox
               img={displayLightbox(selectedImgId)}
               onClose={closeLightbox}
-              onNext={photos.length - 1 > selectedImgId ? next : null}
-              onPrev={selectedImgId > 0 ? prev : null}
+              onNext={!isLast() ? next : null}
+              onPrev={!isFirst() ? prev : null}
             />
           )}
         </Fragment>
