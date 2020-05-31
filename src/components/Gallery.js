@@ -23,6 +23,7 @@ const propTypes = {
     })
   ).isRequired,
   withLightbox: PropTypes.bool,
+  onClickPhoto: PropTypes.func
 };
 
 const defaultProps = {
@@ -32,6 +33,7 @@ const defaultProps = {
     { minWidth: 1025, cols: 12, margin: 1 },
   ],
   withLightbox: true,
+  onClickPhoto: () => {}
 };
 
 const Wrapper = styled.div`
@@ -73,7 +75,7 @@ const getChosenConfiguration = (configurations, width) => {
   };
 };
 
-const Gallery = ({ photos, configurations, withLightbox }) => {
+const Gallery = ({ photos, configurations, withLightbox , onClickPhoto}) => {
   const ref = useRef(null);
   const [selectedImgId, setSelectedImgId] = useState(null);
   const [configuration, setConfiguration] = useState(
@@ -146,6 +148,13 @@ const Gallery = ({ photos, configurations, withLightbox }) => {
     }
   };
 
+  const handleOnClick= (index, photoId) => {
+    if (withLightbox) {
+      setSelectedImgId(index);
+    }
+    onClickPhoto(photoId);
+  }
+
   const chunks = getChunks(photos);
   return (
     <Wrapper ref={ref} onKeyDown={onKeyDown} tabIndex="0">
@@ -165,9 +174,7 @@ const Gallery = ({ photos, configurations, withLightbox }) => {
                       src={p.src}
                       alt=""
                       key={`item-${imgIndex}`}
-                      onClick={
-                        withLightbox ? () => setSelectedImgId(index) : null
-                      }
+                      onClick={() => handleOnClick(index, p.id)}
                     />
                   );
                 })}
