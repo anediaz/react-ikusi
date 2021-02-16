@@ -23,7 +23,7 @@
   "license": "ISC",
   "peerDependencies": {
     "react": "^17.0.1",
-    "styled-components": "^4.x"
+    "styled-components": "^5.x"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.16",
