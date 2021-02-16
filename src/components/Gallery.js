@@ -136,14 +136,15 @@ const Gallery = ({ photos, configurations, withLightbox , onClickPhoto}) => {
     if (!isNaN(selectedImgId)) {
       switch (e.keyCode) {
         case 37: //left
-          !isFirst() ? prev() : null;
+          prev();
           break;
         case 39: //right
-          !isLast() ? next() : null;
+          next();
           break;
         case 27: //ESC
           closeLightbox();
           break;
+        default:
       }
     }
   };
@@ -167,14 +168,14 @@ const Gallery = ({ photos, configurations, withLightbox , onClickPhoto}) => {
                 margin={configuration.margin}
                 key={`line-${chunkIndex}`}
               >
-                {chunk.photos.map((p, imgIndex) => {
+                {chunk.photos.map((photo, imgIndex) => {
                   const index = chunkIndex * configuration.cols + imgIndex;
                   return (
                     <Item
-                      src={p.src}
+                      src={photo.src}
                       alt=""
                       key={`item-${imgIndex}`}
-                      onClick={() => handleOnClick(index, p.id)}
+                      onClick={() => handleOnClick(index, photo.id)}
                     />
                   );
                 })}
