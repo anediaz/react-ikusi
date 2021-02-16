@@ -1,28 +1,42 @@
-import babel from "rollup-plugin-babel";
+import path from "path";
+import babel from "@rollup/plugin-babel";
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import del from "rollup-plugin-delete";
 import pkg from "./package.json";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import postcss from "rollup-plugin-postcss";
+import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 
-const input = "./src/components/Gallery.js";
+const BUILD_DIR = ".";
+const getPath = (filepath) => {
+  return path.resolve(BUILD_DIR, filepath);
+};
 
-const external = id => !id.startsWith("/") && !id.startsWith(".");
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {
+  input: "./src/index.js",
+  output: [{ file: `${getPath(pkg["main"])}.js`, format: "cjs" }],
+  plugins: [
+    peerDepsExternal(),
+    nodeResolve(),
+    babel({
+      exclude: "/node_modules/",
+    }),
+    postcss({
+      minimize: true,
+      modules: false,
+      use: {
+        sass: null,
+        stylus: null,
+        less: { javascriptEnabled: true },
+      },
+    }),
+    commonjs(),
+    terser(),
+    del({ targets: ["dist/*"] }),
+  ],
 
-const getBabelOptions = () => ({
-  runtimeHelpers: true,
-  plugins: ["@babel/transform-runtime"]
-});
+  external: Object.keys(pkg.peerDependencies || {}),
+};
 
-export default [
-  {
-    input,
-    output: { file: pkg.main, format: "cjs" },
-    external,
-    plugins: [babel(getBabelOptions()), terser()]
-  },
-
-  {
-    input,
-    output: { file: pkg.module, format: "es" },
-    external,
-    plugins: [babel(getBabelOptions()), terser()]
-  }
-];
