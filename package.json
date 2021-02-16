@@ -2,7 +2,7 @@
   "name": "react-ikusi",
   "version": "1.0.8",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/index",
   "source": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
