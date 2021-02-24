@@ -1,6 +1,4 @@
-import React from 'react';
 import Gallery from '../components/Gallery';
-
 import {photos} from './data.js';
 
 const GalleryStory = {
@@ -8,7 +6,7 @@ const GalleryStory = {
   component: Gallery
 };
 
-const Template = ({photos, withLightbox}) => <Gallery photos={photos} withLightbox={withLightbox}/>;
+const Template = (args) => <Gallery {...args}/>;
 
 const Basic = Template.bind({});
 Basic.args = {

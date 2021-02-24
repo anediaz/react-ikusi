@@ -1,14 +1,17 @@
 {
   "name": "react-ikusi",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
+  "homepage": "http://anediaz.github.io/react-ikusi",
   "main": "dist/index",
   "source": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "predeploy": "npm run build-storybook",
+    "deploy-storybook": "gh-pages -d storybook-static"
   },
   "repository": {
     "type": "git",

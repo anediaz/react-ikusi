@@ -5,6 +5,12 @@ import styled from "styled-components";
 import Loader from "../utils/Loader";
 import Ligthbox from "./Lightbox";
 
+const defaultConfigurations = [
+  { maxWidth: 340, cols: 4, margin: 1 },
+  { maxWidth: 1024, cols: 6, margin: 1 },
+  { minWidth: 1025, cols: 12, margin: 1 },
+];
+
 const propTypes = {
   configurations: PropTypes.arrayOf(
     PropTypes.shape({
@@ -24,16 +30,6 @@ const propTypes = {
   ).isRequired,
   withLightbox: PropTypes.bool,
   onClickPhoto: PropTypes.func
-};
-
-const defaultProps = {
-  configurations: [
-    { maxWidth: 340, cols: 4, margin: 1 },
-    { maxWidth: 1024, cols: 6, margin: 1 },
-    { minWidth: 1025, cols: 12, margin: 1 },
-  ],
-  withLightbox: true,
-  onClickPhoto: () => {}
 };
 
 const Wrapper = styled.div`
@@ -75,7 +71,7 @@ const getChosenConfiguration = (configurations, width) => {
   };
 };
 
-const Gallery = ({ photos, configurations, withLightbox , onClickPhoto}) => {
+const Gallery = ({ photos, configurations = defaultConfigurations, withLightbox = true, onClickPhoto = () => {}}) => {
   const ref = useRef(null);
   const [selectedImgId, setSelectedImgId] = useState(null);
   const [configuration, setConfiguration] = useState(
@@ -201,5 +197,4 @@ const Gallery = ({ photos, configurations, withLightbox , onClickPhoto}) => {
 };
 
 Gallery.propTypes = propTypes;
-Gallery.defaultProps = defaultProps;
 export default Gallery;
