@@ -2,7 +2,7 @@ import Gallery from '../components/Gallery';
 import {photos} from './data.js';
 
 const GalleryStory = {
-  title: 'Gallery',
+  title: 'Gallery/Gallery',
   component: Gallery
 };
 
@@ -15,4 +15,4 @@ Basic.args = {
   }
 
 export default GalleryStory;
-export {Basic};
+export {Basic as Galery};
