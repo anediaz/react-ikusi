@@ -15,6 +15,8 @@ React photo displaying component library
 :bulb: The word **_ikusi_** from the package name react-ikusi means **_see_** in Basque language.
 Click [here](https://en.wikipedia.org/wiki/Basque_language) for more information.
 
+Take a look to the [Storybook](http://anediaz.github.io/react-ikusi)
+
 ## Preview
 
 Customizable configurations for different screen sizes
@@ -35,13 +37,13 @@ const photos = [
   {
     src: "http://example.com/example/img1.jpg",
     width: 4,
-    height: 3
+    height: 3,
   },
   {
     src: "http://example.com/example/img2.jpg",
     width: 1,
-    height: 1
-  }
+    height: 1,
+  },
 ];
 
 "https://live.staticflickr.com/65535/49595136583_f326bc8ef5_o.jpg",
