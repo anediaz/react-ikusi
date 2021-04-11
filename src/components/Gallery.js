@@ -35,6 +35,7 @@ const propTypes = {
 const Wrapper = styled.div`
   margin-top: 0.2rem;
   width: 100%;
+  outline: none;
 `;
 
 const LineContainer = styled.div`
