@@ -21,7 +21,11 @@ export default {
     peerDepsExternal(),
     nodeResolve(),
     babel({
-      exclude: "/node_modules/",
+      babelrc: false,
+      babelHelpers: 'runtime',
+      exclude: '**/node_modules/**',
+      presets: ['@babel/preset-env', '@babel/preset-react'],
+      plugins: ['@babel/plugin-transform-runtime'],
     }),
     postcss({
       minimize: true,
