@@ -1,9 +1,11 @@
-import React, { Fragment, useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import _ from "underscore";
-import styled from "styled-components";
-import Loader from "../utils/Loader";
-import Ligthbox from "./Lightbox";
+import React, {
+  Fragment, useState, useEffect, useRef,
+} from 'react';
+import PropTypes from 'prop-types';
+import _ from 'underscore';
+import styled from 'styled-components';
+import Loader from '../utils/Loader';
+import Ligthbox from './Lightbox';
 
 const defaultConfigurations = [
   { maxWidth: 340, cols: 4, margin: 1 },
@@ -18,7 +20,7 @@ const propTypes = {
       margin: PropTypes.number.isRequired,
       maxWidth: PropTypes.number,
       minWidth: PropTypes.number,
-    })
+    }),
   ),
   photos: PropTypes.arrayOf(
     PropTypes.shape({
@@ -26,10 +28,10 @@ const propTypes = {
       width: PropTypes.number.isRequired,
       height: PropTypes.number.isRequired,
       bigSrc: PropTypes.string,
-    })
+    }),
   ).isRequired,
   withLightbox: PropTypes.bool,
-  onClickPhoto: PropTypes.func
+  onClickPhoto: PropTypes.func,
 };
 
 const Wrapper = styled.div`
@@ -51,7 +53,7 @@ const Item = styled.img`
   height: 100%;
   width: auto;
   &:hover {
-    cursor: ${(props) => (props.onClick ? "pointer" : "default")};
+    cursor: ${(props) => (props.onClick ? 'pointer' : 'default')};
     opacity: 0.5;
   }
 `;
@@ -61,9 +63,8 @@ const DEFAULT_MARGIN = 1;
 
 const getChosenConfiguration = (configurations, width) => {
   const propsConfiguration = configurations.find(
-    ({ minWidth, maxWidth }) =>
-      ((minWidth && minWidth <= width) || !minWidth) &&
-      ((maxWidth && maxWidth >= width) || !maxWidth)
+    ({ minWidth, maxWidth }) => ((minWidth && minWidth <= width) || !minWidth)
+      && ((maxWidth && maxWidth >= width) || !maxWidth),
   );
   return {
     width,
@@ -72,25 +73,24 @@ const getChosenConfiguration = (configurations, width) => {
   };
 };
 
-const Gallery = ({ photos, configurations = defaultConfigurations, withLightbox = true, onClickPhoto = () => {}}) => {
+const Gallery = ({
+  photos, configurations = defaultConfigurations, withLightbox = true, onClickPhoto = () => {},
+}) => {
   const ref = useRef(null);
   const [selectedImgId, setSelectedImgId] = useState(null);
   const [configuration, setConfiguration] = useState(
-    getChosenConfiguration(configurations, window.screen.width)
+    getChosenConfiguration(configurations, window.screen.width),
   );
 
-  const getWidth = () => {
-    return ref.current.offsetWidth || 0;
-  };
+  const getWidth = () => ref.current.offsetWidth || 0;
   useEffect(() => {
     const handleResize = _.debounce(
-      () =>
-        setConfiguration(getChosenConfiguration(configurations, getWidth())),
-      400
+      () => setConfiguration(getChosenConfiguration(configurations, getWidth())),
+      400,
     );
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     setConfiguration(getChosenConfiguration(configurations, getWidth()));
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [configurations]);
 
   const closeLightbox = () => setSelectedImgId(null);
@@ -99,15 +99,14 @@ const Gallery = ({ photos, configurations = defaultConfigurations, withLightbox 
   const isLast = () => selectedImgId === photos.length - 1;
   const next = () => (!isLast() ? setSelectedImgId(selectedImgId + 1) : null);
   const prev = () => (!isFirst() ? setSelectedImgId(selectedImgId - 1) : null);
-  const displayLightbox = (index) =>
-    index !== null && photos.length >= index && photos[index]
-      ? photos[index].bigSrc || photos[index].src
-      : null;
+  const displayLightbox = (index) => (index !== null && photos.length >= index && photos[index]
+    ? photos[index].bigSrc || photos[index].src
+    : null);
 
-  const getLineHeight = (photos) => {
+  const getLineHeight = (photosToLineHeight) => {
     const { width: screenWidth, cols, margin } = configuration;
     let ratioSum = 0;
-    photos.forEach((p) => {
+    photosToLineHeight.forEach((p) => {
       ratioSum += p.width / p.height;
     });
     const marginTotalWidth = cols * margin * 2;
@@ -116,8 +115,8 @@ const Gallery = ({ photos, configurations = defaultConfigurations, withLightbox 
     return (screenWidth - 1 - marginTotalWidth) / ratioSum;
   };
 
-  const getChunks = (photos) => {
-    const newPhotos = [...photos];
+  const getChunks = (photosToChunk) => {
+    const newPhotos = [...photosToChunk];
     const chunks = [];
     while (newPhotos.length) {
       const chunkPhotos = newPhotos.splice(0, configuration.cols);
@@ -130,15 +129,15 @@ const Gallery = ({ photos, configurations = defaultConfigurations, withLightbox 
   };
 
   const onKeyDown = (e) => {
-    if (!isNaN(selectedImgId)) {
+    if (!Number.isNaN(selectedImgId)) {
       switch (e.keyCode) {
-        case 37: //left
+        case 37: // left
           prev();
           break;
-        case 39: //right
+        case 39: // right
           next();
           break;
-        case 27: //ESC
+        case 27: // ESC
           closeLightbox();
           break;
         default:
@@ -146,41 +145,39 @@ const Gallery = ({ photos, configurations = defaultConfigurations, withLightbox 
     }
   };
 
-  const handleOnClick= (index, photoId) => {
+  const handleOnClick = (index, photoId) => {
     if (withLightbox) {
       setSelectedImgId(index);
     }
     onClickPhoto(photoId);
-  }
+  };
 
   const chunks = getChunks(photos);
   return (
     <Wrapper ref={ref} onKeyDown={onKeyDown} tabIndex="0">
       {photos.length ? (
-        <Fragment>
-          {chunks.map((chunk, chunkIndex) =>
-            chunk.lineHeight ? (
-              <LineContainer
-                height={chunk.lineHeight}
-                margin={configuration.margin}
-                key={`line-${chunkIndex}`}
-              >
-                {chunk.photos.map((photo, imgIndex) => {
-                  const index = chunkIndex * configuration.cols + imgIndex;
-                  return (
-                    <Item
-                      src={photo.src}
-                      alt=""
-                      key={`item-${imgIndex}`}
-                      onClick={() => handleOnClick(index, photo.id)}
-                    />
-                  );
-                })}
-              </LineContainer>
-            ) : (
-              <Loader />
-            )
-          )}
+        <>
+          {chunks.map((chunk, chunkIndex) => (chunk.lineHeight ? (
+            <LineContainer
+              height={chunk.lineHeight}
+              margin={configuration.margin}
+              key={`line-${chunk.lineHeight}`}
+            >
+              {chunk.photos.map((photo, imgIndex) => {
+                const index = chunkIndex * configuration.cols + imgIndex;
+                return (
+                  <Item
+                    src={photo.src}
+                    alt=""
+                    key={`item-${photo.id}`}
+                    onClick={() => handleOnClick(index, photo.id)}
+                  />
+                );
+              })}
+            </LineContainer>
+          ) : (
+            <Loader />
+          )))}
           {withLightbox && selectedImgId !== null && (
             <Ligthbox
               img={displayLightbox(selectedImgId)}
@@ -189,7 +186,7 @@ const Gallery = ({ photos, configurations = defaultConfigurations, withLightbox 
               onPrev={!isFirst() ? prev : null}
             />
           )}
-        </Fragment>
+        </>
       ) : (
         <Loader />
       )}
