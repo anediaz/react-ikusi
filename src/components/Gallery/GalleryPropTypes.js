@@ -15,6 +15,7 @@ const GalleryPropTypes = {
       width: PropTypes.number.isRequired,
       height: PropTypes.number.isRequired,
       bigSrc: PropTypes.string,
+      id: PropTypes.string,
     }),
   ).isRequired,
   withLightbox: PropTypes.bool,

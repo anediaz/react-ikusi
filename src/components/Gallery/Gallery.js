@@ -26,6 +26,7 @@ const LineContainer = styled.div`
 const Item = styled.img`
   height: 100%;
   width: auto;
+  display: ${(props) => (props.loading ? 'none' : 'flex')};
   &:hover {
     cursor: ${(props) => (props.onClick ? 'pointer' : 'default')};
     opacity: 0.5;
@@ -47,13 +48,14 @@ const getChosenConfiguration = (configurations, width) => {
 const Gallery = ({
   photos, configurations = defaultConfigurations, withLightbox = true, onClickPhoto = () => {},
 }) => {
-  const ref = useRef(null);
+  const wrapperRef = useRef(null);
   const [selectedImgId, setSelectedImgId] = useState(null);
   const [configuration, setConfiguration] = useState(
     getChosenConfiguration(configurations, window.screen.width),
   );
+  const [countLoaded, setCountLoaded] = useState(0);
 
-  const getWidth = () => ref.current.offsetWidth || 0;
+  const getWidth = () => wrapperRef.current.offsetWidth || 0;
   useEffect(() => {
     const handleResize = _.debounce(
       () => setConfiguration(getChosenConfiguration(configurations, getWidth())),
@@ -116,19 +118,25 @@ const Gallery = ({
     }
   };
 
-  const handleOnClick = (index, photoId) => {
+  const handleOnImageClick = (index, photoId) => {
     if (withLightbox) {
       setSelectedImgId(index);
     }
     onClickPhoto(photoId);
   };
 
+  const isLoading = () => countLoaded < photos.length;
+  const handleOnImageLoad = () => {
+    setCountLoaded(countLoaded + 1);
+  };
+
   const chunks = getChunks(photos);
   return (
-    <Wrapper ref={ref} onKeyDown={onKeyDown} tabIndex="0">
+    <Wrapper ref={wrapperRef} onKeyDown={onKeyDown} tabIndex="0">
+      {isLoading() && photos.length && <Loader />}
       {photos.length ? (
         <>
-          {chunks.map((chunk, chunkIndex) => (chunk.lineHeight ? (
+          {chunks.map((chunk, chunkIndex) => (chunk.lineHeight && (
             <LineContainer
               height={chunk.lineHeight}
               margin={configuration.margin}
@@ -141,13 +149,13 @@ const Gallery = ({
                     src={photo.src}
                     alt=""
                     key={`item-${photo.id}`}
-                    onClick={() => handleOnClick(index, photo.id)}
+                    onClick={() => handleOnImageClick(index, photo.id)}
+                    onLoad={() => handleOnImageLoad()}
+                    loading={isLoading()}
                   />
                 );
               })}
             </LineContainer>
-          ) : (
-            <Loader />
           )))}
           {withLightbox && selectedImgId !== null && (
             <Ligthbox
