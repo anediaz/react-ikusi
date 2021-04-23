@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import LoaderInline from '../Loader/LoaderInline';
 import LightboxPropTypes from './LightboxPropTypes';
+import { ReactComponent as CloseIcon } from './assets/close.svg';
+import { ReactComponent as LeftIcon } from './assets/left.svg';
+import { ReactComponent as RightIcon } from './assets/right.svg';
 
 const Wrapper = styled.div`
   display: ${(props) => (!props.isActive ? 'none' : 'flex')};
@@ -51,24 +54,25 @@ const ButtonContainer = styled.div`
     margin: 0 auto;
   }
 `;
-const Button = styled.span`
-  color: white;
-  font-size: ${(props) => (props.fontSize === 'small' ? '35px' : '50px')};
-  opacity: 0.6;
-  @media (max-width: 768px) {
-    font-size: ${(props) => (props.fontSize === 'small' ? '35px' : '40px')};
-  }
 
-  &:hover {
-    cursor: pointer;
-  }
-  @media (min-width: 1920px) {
-    font-size: 125px;
+const IconContainer = styled.div`
+  svg{
+    fill: white;
+    width: ${(props) => (props.size === 'small' ? '35px' : '45px')};
+    height: auto;
+    opacity: .8;
+    margin-bottom: 1rem;
+    &:hover {
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      width: ${(props) => (props.size === 'small' ? '35px' : '40px')};
+    }
+    @media (min-width: 1920px) {
+      width: 125px;
+    }
   }
 `;
-
-const previousText = '\x3C';
-const nextText = '\x3E';
 
 const Ligthbox = ({
   img, onClose = () => {}, onNext, onPrev,
@@ -89,25 +93,25 @@ const Ligthbox = ({
     setIsLoading(true);
   };
 
-  console.log(`is loading -> ${isLoading}`);
-
   return (
     <Wrapper isActive={Boolean(img)}>
       {isLoading && <LoaderInline />}
       <Modal isLoading={isLoading}>
-        <Button onClick={() => onClose()} fontSize="big">
-          ×
-        </Button>
+        <IconContainer onClick={() => onClose()} size="big">
+          <CloseIcon />
+        </IconContainer>
       </Modal>
       <Content isLoading={isLoading}>
         <ButtonContainer enabled={Boolean(onPrev)}>
-          <Button onClick={() => (onPrev ? handleOnPrev() : null)}>
-            {previousText}
-          </Button>
+          <IconContainer onClick={() => (onPrev ? handleOnPrev() : null)}>
+            <LeftIcon />
+          </IconContainer>
         </ButtonContainer>
         <Image src={img} isLoading={isLoading} alt="lightbox of the selected picture" onLoad={handleOnLoad} />
         <ButtonContainer enabled={Boolean(onNext)}>
-          <Button onClick={() => (onNext ? handleOnNext() : null)}>{nextText}</Button>
+          <IconContainer onClick={() => (onNext ? handleOnNext() : null)}>
+            <RightIcon />
+          </IconContainer>
         </ButtonContainer>
       </Content>
     </Wrapper>
