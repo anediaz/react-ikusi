@@ -1,5 +1,6 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
 import './LoaderCircle.css';
 
@@ -26,15 +27,15 @@ const DivStyle = styled.div`
   }
 `;
 
-const LoaderCircle = ({color, opacity}) => (
+const LoaderCircle = ({ color, opacity }) => (
   <LoaderStyle className="lds-roller">
-    {[...Array(8)].map((_, index) => <DivStyle key={index} background={color} opacity={opacity}/>)}
+    {[...Array(8)].map((_, index) => <DivStyle key={index} background={color} opacity={opacity} />)}
   </LoaderStyle>
-)
+);
 
 LoaderCircle.propTypes = {
   color: PropTypes.string,
   opacity: PropTypes.string,
-}
+};
 
 export default LoaderCircle;
