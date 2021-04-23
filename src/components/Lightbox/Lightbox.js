@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import LoaderInline from '../Loader/LoaderInline';
 import LightboxPropTypes from './LightboxPropTypes';
 
 const Wrapper = styled.div`
@@ -19,14 +20,15 @@ const Modal = styled.div`
   width: 100%;
   overflow: auto;
   text-align: center;
+  display: ${(props) => (props.isLoading && 'none')};
 `;
 
 const Content = styled.div`
   text-align: center;
-  display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  display: ${(props) => (props.isLoading ? 'none' : 'flex')};
   @media (orientation: landscape) {
     height: 75%;
   }
@@ -39,6 +41,7 @@ const Image = styled.img`
   margin: 0 auto;
   max-height: 100%;
   max-width: 80%;
+  display: ${(props) => (props.isLoading ? 'none' : 'flex')};
 `;
 
 const ButtonContainer = styled.div`
@@ -69,26 +72,47 @@ const nextText = '\x3E';
 
 const Ligthbox = ({
   img, onClose = () => {}, onNext, onPrev,
-}) => (
-  <Wrapper isActive={Boolean(img)}>
-    <Modal>
-      <Button onClick={() => onClose()} fontSize="big">
-        ×
-      </Button>
-    </Modal>
-    <Content>
-      <ButtonContainer enabled={Boolean(onPrev)}>
-        <Button onClick={() => (onPrev ? onPrev() : null)}>
-          {previousText}
+}) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleOnLoad = () => {
+    setIsLoading(false);
+  };
+
+  const handleOnNext = () => {
+    onNext();
+    setIsLoading(true);
+  };
+
+  const handleOnPrev = () => {
+    onPrev();
+    setIsLoading(true);
+  };
+
+  console.log(`is loading -> ${isLoading}`);
+
+  return (
+    <Wrapper isActive={Boolean(img)}>
+      {isLoading && <LoaderInline />}
+      <Modal isLoading={isLoading}>
+        <Button onClick={() => onClose()} fontSize="big">
+          ×
         </Button>
-      </ButtonContainer>
-      <Image src={img} alt="" />
-      <ButtonContainer enabled={Boolean(onNext)}>
-        <Button onClick={() => (onNext ? onNext() : null)}>{nextText}</Button>
-      </ButtonContainer>
-    </Content>
-  </Wrapper>
-);
+      </Modal>
+      <Content isLoading={isLoading}>
+        <ButtonContainer enabled={Boolean(onPrev)}>
+          <Button onClick={() => (onPrev ? handleOnPrev() : null)}>
+            {previousText}
+          </Button>
+        </ButtonContainer>
+        <Image src={img} isLoading={isLoading} alt="lightbox of the selected picture" onLoad={handleOnLoad} />
+        <ButtonContainer enabled={Boolean(onNext)}>
+          <Button onClick={() => (onNext ? handleOnNext() : null)}>{nextText}</Button>
+        </ButtonContainer>
+      </Content>
+    </Wrapper>
+  );
+};
 
 Ligthbox.propTypes = LightboxPropTypes;
 export default Ligthbox;
