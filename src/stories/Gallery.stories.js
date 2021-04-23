@@ -16,4 +16,4 @@ Basic.args = {
 };
 
 export default GalleryStory;
-export { Basic as Galery };
+export { Basic as Gallery };

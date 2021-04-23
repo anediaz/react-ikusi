@@ -1,38 +1,12 @@
 import React, {
-  Fragment, useState, useEffect, useRef,
+  useState, useEffect, useRef,
 } from 'react';
-import PropTypes from 'prop-types';
 import _ from 'underscore';
 import styled from 'styled-components';
+import GalleryPropTypes from './GalleryPropTypes';
 import Loader from '../Loader/Loader';
 import Ligthbox from '../Lightbox/Lightbox';
-
-const defaultConfigurations = [
-  { maxWidth: 340, cols: 4, margin: 1 },
-  { maxWidth: 1024, cols: 6, margin: 1 },
-  { minWidth: 1025, cols: 12, margin: 1 },
-];
-
-const propTypes = {
-  configurations: PropTypes.arrayOf(
-    PropTypes.shape({
-      cols: PropTypes.number.isRequired,
-      margin: PropTypes.number.isRequired,
-      maxWidth: PropTypes.number,
-      minWidth: PropTypes.number,
-    }),
-  ),
-  photos: PropTypes.arrayOf(
-    PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      width: PropTypes.number.isRequired,
-      height: PropTypes.number.isRequired,
-      bigSrc: PropTypes.string,
-    }),
-  ).isRequired,
-  withLightbox: PropTypes.bool,
-  onClickPhoto: PropTypes.func,
-};
+import { defaultConfigurations, DEFAULT_COLS, DEFAULT_MARGIN } from './constants';
 
 const Wrapper = styled.div`
   margin-top: 0.2rem;
@@ -57,9 +31,6 @@ const Item = styled.img`
     opacity: 0.5;
   }
 `;
-
-const DEFAULT_COLS = 7;
-const DEFAULT_MARGIN = 1;
 
 const getChosenConfiguration = (configurations, width) => {
   const propsConfiguration = configurations.find(
@@ -194,5 +165,5 @@ const Gallery = ({
   );
 };
 
-Gallery.propTypes = propTypes;
+Gallery.propTypes = GalleryPropTypes;
 export default Gallery;

@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import LightboxPropTypes from './LightboxPropTypes';
 
 const Wrapper = styled.div`
   display: ${(props) => (!props.isActive ? 'none' : 'flex')};
@@ -64,12 +64,6 @@ const Button = styled.span`
   }
 `;
 
-const propTypes = {
-  img: PropTypes.string.isRequired,
-  onClose: PropTypes.func,
-  onNext: PropTypes.func,
-  onPrev: PropTypes.func,
-};
 const previousText = '\x3C';
 const nextText = '\x3E';
 
@@ -96,5 +90,5 @@ const Ligthbox = ({
   </Wrapper>
 );
 
-Ligthbox.propTypes = propTypes;
+Ligthbox.propTypes = LightboxPropTypes;
 export default Ligthbox;
