@@ -4,8 +4,8 @@ import React, {
 import PropTypes from 'prop-types';
 import _ from 'underscore';
 import styled from 'styled-components';
-import Loader from '../utils/Loader';
-import Ligthbox from './Lightbox';
+import Loader from '../Loader/Loader';
+import Ligthbox from '../Lightbox/Lightbox';
 
 const defaultConfigurations = [
   { maxWidth: 340, cols: 4, margin: 1 },
