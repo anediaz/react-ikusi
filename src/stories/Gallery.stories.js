@@ -15,5 +15,24 @@ Basic.args = {
   withLightbox: true,
 };
 
+const WithoutLightbox = Template.bind({});
+WithoutLightbox.args = {
+  photos,
+  withLightbox: false,
+};
+
+const configurations = [
+  { maxWidth: 340, cols: 3, margin: 1 },
+  { maxWidth: 1024, cols: 3, margin: 1 },
+  { minWidth: 1025, cols: 3, margin: 1 },
+];
+
+const WithMobileConfig = Template.bind({});
+WithMobileConfig.args = {
+  photos,
+  withLightbox: true,
+  configurations,
+};
+
 export default GalleryStory;
-export { Basic as Gallery };
+export { Basic as Default, WithoutLightbox as NoLightbox, WithMobileConfig as SmallScreenGallery };

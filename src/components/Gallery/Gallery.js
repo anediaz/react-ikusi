@@ -6,7 +6,9 @@ import styled from 'styled-components';
 import GalleryPropTypes from './GalleryPropTypes';
 import Loader from '../Loader/Loader';
 import Ligthbox from '../Lightbox/Lightbox';
-import { defaultConfigurations, DEFAULT_COLS, DEFAULT_MARGIN } from './constants';
+import {
+  defaultConfigurations, DEFAULT_COLS, DEFAULT_MARGIN, getChunks,
+} from './utils';
 
 const Wrapper = styled.div`
   margin-top: 0.2rem;
@@ -28,8 +30,8 @@ const Item = styled.img`
   width: auto;
   display: ${(props) => (props.loading ? 'none' : 'flex')};
   &:hover {
-    cursor: ${(props) => (props.onClick ? 'pointer' : 'default')};
-    opacity: 0.5;
+    cursor: ${(props) => (props.clickable ? 'pointer' : 'default')};
+    opacity: ${(props) => (props.clickable ? '0.5' : '1')};
   }
 `;
 
@@ -76,31 +78,6 @@ const Gallery = ({
     ? photos[index].bigSrc || photos[index].src
     : null);
 
-  const getLineHeight = (photosToLineHeight) => {
-    const { width: screenWidth, cols, margin } = configuration;
-    let ratioSum = 0;
-    photosToLineHeight.forEach((p) => {
-      ratioSum += p.width / p.height;
-    });
-    const marginTotalWidth = cols * margin * 2;
-    // '-1' because screenWith rounds size to up
-    // marginTotalWidth = width to remove to size where images will be placed
-    return (screenWidth - 1 - marginTotalWidth) / ratioSum;
-  };
-
-  const getChunks = (photosToChunk) => {
-    const newPhotos = [...photosToChunk];
-    const chunks = [];
-    while (newPhotos.length) {
-      const chunkPhotos = newPhotos.splice(0, configuration.cols);
-      chunks.push({
-        photos: chunkPhotos,
-        lineHeight: getLineHeight(chunkPhotos),
-      });
-    }
-    return chunks;
-  };
-
   const onKeyDown = (e) => {
     if (!Number.isNaN(selectedImgId)) {
       switch (e.keyCode) {
@@ -130,7 +107,7 @@ const Gallery = ({
     setCountLoaded(countLoaded + 1);
   };
 
-  const chunks = getChunks(photos);
+  const chunks = getChunks(configuration, photos);
   return (
     <Wrapper ref={wrapperRef} onKeyDown={onKeyDown} tabIndex="0">
       {isLoading() && photos.length && <Loader />}
@@ -147,9 +124,10 @@ const Gallery = ({
                 return (
                   <Item
                     src={photo.src}
-                    alt=""
+                    alt={`picture with id ${photo.id}`}
                     key={`item-${photo.id}`}
                     onClick={() => handleOnImageClick(index, photo.id)}
+                    clickable={withLightbox}
                     onLoad={() => handleOnImageLoad()}
                     loading={isLoading()}
                   />
