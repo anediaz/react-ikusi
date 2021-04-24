@@ -111,10 +111,23 @@ import StackAlt from "./assets/stackalt.svg";
     display: inline-block;
   }
 
+  .title{
+    margin-bottom: 4rem;
+  }
+
+  .imagesLine {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
 
 `}</style>
 
-# React-Ikusi Storybook
+
+<img src="https://live.staticflickr.com//65535//49596034956_0cd35c0db4_o.png" className="title"/>
+
+# Storybook
 
 Storybook helps you build UI components in isolation from your app's business logic, data, and context.
 That makes it easy to develop hard-to-reach states. Save these UI states as **stories** to revisit during development, testing, or QA.
@@ -122,4 +135,37 @@ That makes it easy to develop hard-to-reach states. Save these UI states as **st
 Gallery component can be tested, just navigate to it in the sidebar.
 View its code in the `src/stories` directory to learn how they work.
 
+#
+
+React photo displaying component library
+
+- Creates a masonry for image displaying
+- Supports row direction layout
+- Configurable for different screen sizes
+- Responsive
+- Combined with a lightbox to display each image
+
+The word **_ikusi_** from the package name react-ikusi means **_see_** in Basque language.
+Click [here](https://en.wikipedia.org/wiki/Basque_language) for more information.
+
+## Preview
+
+Customizable configurations for different screen sizes
+
+<div className="imagesLine">
+  <img src="https:\/\/live.staticflickr.com\/65535\/49596351782_fbf41d588f_n.jpg" alt="example portrait" style={{width: '40%'}}/>
+  <img src="https://live.staticflickr.com//65535//49595603383_d76c9a0d9a_n.png" alt="example landscape" style={{width: '30%'}}/>
+</div>
+
+## Layout
+An exemple of Gallery's layout
+
+<div className="imagesLine">
+  <img src="https://live.staticflickr.com//65535//49595136583_f326bc8ef5_n.jpg" width="35%" alt="layout simple"/>
+  <img src="https://live.staticflickr.com//65535//49595636006_ce5a2e029a_n.jpg" width="35%" alt="layout with column numbers"/>
+</div>
+<div className="imagesLine">
+  <img src="https:\/\/live.staticflickr.com\/65535\/49595635976_7d941dac9e_n.jpg" width="35%" alt="layout with margin values"/>
+  <img src="https:\/\/live.staticflickr.com\/65535\/49595136513_235b10c43e_n.jpg" width="35%" alt="layout with column numbers and margin values"/>
+</div>
 
