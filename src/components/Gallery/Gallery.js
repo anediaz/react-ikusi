@@ -2,6 +2,7 @@ import React, {
   useState, useEffect, useRef,
 } from 'react';
 import _ from 'underscore';
+import { uuid } from 'uuidv4';
 import styled from 'styled-components';
 import GalleryPropTypes from './GalleryPropTypes';
 import Loader from '../Loader/Loader';
@@ -117,7 +118,7 @@ const Gallery = ({
             <LineContainer
               height={chunk.lineHeight}
               margin={configuration.margin}
-              key={`line-${chunk.lineHeight}`}
+              key={uuid()}
             >
               {chunk.photos.map((photo, imgIndex) => {
                 const index = chunkIndex * configuration.cols + imgIndex;
