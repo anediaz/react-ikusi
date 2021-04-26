@@ -29,7 +29,7 @@ const LineContainer = styled.div`
 const Item = styled.img`
   height: 100%;
   width: auto;
-  display: ${(props) => (props.loading ? 'none' : 'flex')};
+  display: ${(props) => (props.isLoading ? 'none' : 'flex')};
   &:hover {
     cursor: ${(props) => (props.clickable ? 'pointer' : 'default')};
     opacity: ${(props) => (props.clickable ? '0.5' : '1')};
@@ -130,7 +130,7 @@ const Gallery = ({
                     onClick={() => handleOnImageClick(index, photo.id)}
                     clickable={withLightbox}
                     onLoad={() => handleOnImageLoad()}
-                    loading={isLoading()}
+                    isLoading={isLoading()}
                   />
                 );
               })}
