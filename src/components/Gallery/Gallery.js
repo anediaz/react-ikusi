@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, {
   useState, useEffect, useRef,
 } from 'react';
@@ -117,7 +118,7 @@ const Gallery = ({
             <LineContainer
               height={chunk.lineHeight}
               margin={configuration.margin}
-              key={`line-${chunk.lineHeight}`}
+              key={`line-${chunkIndex}`}
             >
               {chunk.photos.map((photo, imgIndex) => {
                 const index = chunkIndex * configuration.cols + imgIndex;
