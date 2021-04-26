@@ -13,7 +13,7 @@
     "lint": "eslint src/**/*.js src/**/*.jsx",
     "predeploy": "npm run build-storybook",
     "storybook": "start-storybook -p 6006",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "react-scripts test"
   },
   "repository": {
     "type": "git",
@@ -39,12 +39,13 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
+    "@rollup/plugin-url": "^6.0.0",
     "@storybook/addon-actions": "^6.1.18",
     "@storybook/addon-essentials": "^6.1.18",
     "@storybook/addon-links": "^6.1.18",
     "@storybook/preset-create-react-app": "^3.1.6",
     "@storybook/react": "^6.1.18",
-    "@testing-library/react": "^11.2.6",
+    "@svgr/rollup": "^5.5.0",
     "babel-loader": "^8.2.2",
     "eslint": "^7.24.0",
     "eslint-config-airbnb": "^18.2.1",

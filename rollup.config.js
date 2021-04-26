@@ -1,22 +1,22 @@
-import path from "path";
-import babel from "@rollup/plugin-babel";
-import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import del from "rollup-plugin-delete";
-import pkg from "./package.json";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import postcss from "rollup-plugin-postcss";
-import commonjs from "@rollup/plugin-commonjs";
-import { terser } from "rollup-plugin-terser";
+import path from 'path';
+import babel from '@rollup/plugin-babel';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import del from 'rollup-plugin-delete';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import postcss from 'rollup-plugin-postcss';
+import commonjs from '@rollup/plugin-commonjs';
+import { terser } from 'rollup-plugin-terser';
+import svgr from '@svgr/rollup';
+import url from '@rollup/plugin-url';
+import pkg from './package.json';
 
-const BUILD_DIR = ".";
-const getPath = (filepath) => {
-  return path.resolve(BUILD_DIR, filepath);
-};
+const BUILD_DIR = '.';
+const getPath = (filepath) => path.resolve(BUILD_DIR, filepath);
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  input: "./src/index.js",
-  output: [{ file: `${getPath(pkg["main"])}.js`, format: "cjs" }],
+  input: './src/index.js',
+  output: [{ file: `${getPath(pkg.main)}.js`, format: 'cjs' }],
   plugins: [
     peerDepsExternal(),
     nodeResolve(),
@@ -37,10 +37,11 @@ export default {
       },
     }),
     commonjs(),
+    url(),
+    svgr(),
     terser(),
-    del({ targets: ["dist/*"] }),
+    del({ targets: ['dist/*'] }),
   ],
 
   external: Object.keys(pkg.peerDependencies || {}),
 };
-
