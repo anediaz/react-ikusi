@@ -1,4 +1,4 @@
-import { getChunks } from './utils';
+import { getChunks } from '../components/Gallery/utils';
 
 let screenWidth = 2700;
 let cols = 4;
@@ -37,7 +37,9 @@ test('For a given configuration, the callculated line height must be appropriate
   // Expect
   expect(chunks).toHaveLength(2);
   expect(verifyLineHeight(chunks[0], screenWidth)).toBeTruthy();
+  expect(chunks[0].photos).toHaveLength(cols);
   expect(verifyLineHeight(chunks[1], screenWidth)).toBeTruthy();
+  expect(chunks[1].photos).toHaveLength(2);
 });
 test('For another configuration, the callculated line height must be appropriate', () => {
   // Arrange
