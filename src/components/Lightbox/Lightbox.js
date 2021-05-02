@@ -75,7 +75,7 @@ const IconContainer = styled.div`
 `;
 
 const Ligthbox = ({
-  img, onClose = () => {}, onNext, onPrev,
+  img, id, onClose = () => {}, onNext, onPrev,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -97,18 +97,18 @@ const Ligthbox = ({
     <Wrapper isActive={Boolean(img)}>
       {isLoading && <LoaderInline />}
       <Modal isLoading={isLoading}>
-        <IconContainer onClick={() => onClose()} size="big">
+        <IconContainer data-testid="close-button" alt="close" onClick={() => onClose()} size="big">
           <CloseIcon />
         </IconContainer>
       </Modal>
       <Content isLoading={isLoading}>
-        <ButtonContainer enabled={Boolean(onPrev)}>
+        <ButtonContainer data-testid="prev-button" alt="prev" enabled={Boolean(onPrev)}>
           <IconContainer onClick={() => (onPrev ? handleOnPrev() : null)}>
             <LeftIcon />
           </IconContainer>
         </ButtonContainer>
-        <Image src={img} isLoading={isLoading} alt="lightbox of the selected picture" onLoad={handleOnLoad} />
-        <ButtonContainer enabled={Boolean(onNext)}>
+        <Image src={img} isLoading={isLoading} alt={`lightbox of the selected picture with id ${id}`} onLoad={handleOnLoad} />
+        <ButtonContainer data-testid="next-button" alt="next" enabled={Boolean(onNext)}>
           <IconContainer onClick={() => (onNext ? handleOnNext() : null)}>
             <RightIcon />
           </IconContainer>

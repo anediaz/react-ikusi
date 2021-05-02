@@ -75,9 +75,7 @@ const Gallery = ({
   const isLast = () => selectedImgId === photos.length - 1;
   const next = () => (!isLast() ? setSelectedImgId(selectedImgId + 1) : null);
   const prev = () => (!isFirst() ? setSelectedImgId(selectedImgId - 1) : null);
-  const displayLightbox = (index) => (index !== null && photos.length >= index && photos[index]
-    ? photos[index].bigSrc || photos[index].src
-    : null);
+  const lightboxImage = (index) => (index !== null && photos.length >= index && photos[index]);
 
   const onKeyDown = (e) => {
     if (!Number.isNaN(selectedImgId)) {
@@ -108,10 +106,26 @@ const Gallery = ({
     setCountLoaded(countLoaded + 1);
   };
 
+  const displayLightBox = () => {
+    if (withLightbox && selectedImgId !== null) {
+      const imageToDisplay = lightboxImage(selectedImgId);
+      return (
+        <Ligthbox
+          img={imageToDisplay.bigSrc || imageToDisplay.src}
+          id={imageToDisplay.id}
+          onClose={closeLightbox}
+          onNext={!isLast() ? next : null}
+          onPrev={!isFirst() ? prev : null}
+        />
+      );
+    }
+    return null;
+  };
+
   const chunks = getChunks(configuration, photos);
   return (
     <Wrapper ref={wrapperRef} onKeyDown={onKeyDown} tabIndex="0">
-      {isLoading() && photos.length && <Loader />}
+      {isLoading() && <Loader />}
       {photos.length ? (
         <>
           {chunks.map((chunk, chunkIndex) => (chunk.lineHeight && (
@@ -136,17 +150,10 @@ const Gallery = ({
               })}
             </LineContainer>
           )))}
-          {withLightbox && selectedImgId !== null && (
-            <Ligthbox
-              img={displayLightbox(selectedImgId)}
-              onClose={closeLightbox}
-              onNext={!isLast() ? next : null}
-              onPrev={!isFirst() ? prev : null}
-            />
-          )}
+          {displayLightBox()}
         </>
       ) : (
-        <Loader />
+        <></>
       )}
     </Wrapper>
   );

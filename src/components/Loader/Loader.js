@@ -27,7 +27,7 @@ const Circle1 = styled(Circle)`
   top: calc(50% - 1.5rem);
   border-color: deepskyblue;
   border-left: none;
-  animation: ${rotateCircle} 8s linear infinite;
+  animation: ${rotateCircle} 5s linear infinite;
 `;
 
 const Circle2 = styled(Circle)`
@@ -47,10 +47,10 @@ const Circle3 = styled(Circle)`
   top: calc(50% - 0.5rem);
   border-color: lightseagreen;
   border-right: none;
-  animation: ${rotateCircle} 5s linear infinite;
+  animation: ${rotateCircle} 4s linear infinite;
 `;
 const Loader = () => (
-  <div className="Loader">
+  <div role="progressbar" aria-valuetext="loader">
     <Circle1 />
     <Circle2 />
     <Circle3 />
