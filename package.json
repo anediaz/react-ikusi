@@ -7,11 +7,11 @@
   "source": "src/index.js",
   "scripts": {
     "build": "rollup -c",
-    "build-storybook": "build-storybook",
+    "build-storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
     "deploy-storybook": "gh-pages -d storybook-static",
     "format": "prettier --write \"{,!(node_modules)/**/}*.js\"",
     "lint": "eslint src/**/*.js src/**/*.jsx",
-    "predeploy": "npm run build-storybook",
+    "predeploy": "yarn run build-storybook",
     "storybook": "NODE_OPTIONS=--openssl-legacy-provider yarn run start-storybook -p 6006",
     "test": "react-scripts test"
   },
