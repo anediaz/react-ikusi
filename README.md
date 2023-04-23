@@ -22,7 +22,7 @@ Take a look to the [Storybook](http://anediaz.github.io/react-ikusi)
 Customizable configurations for different screen sizes
 | | |
 | ---------------------------------------------------------------------------------- | :------------------------------------------------------------------------------: |
-| <img src="https:\/\/live.staticflickr.com\/65535\/49596351782_fbf41d588f_n.jpg" alt="example"/> | <img src="https://live.staticflickr.com//65535//49595603383_d76c9a0d9a_n.png" alt="example"/> |
+| <img src="https://live.staticflickr.com//65535//49596351782_fbf41d588f_n.jpg" alt="example"/> | <img src="https://live.staticflickr.com//65535//49595603383_d76c9a0d9a_n.png" alt="example"/> |
 
 ## Installation
 
@@ -89,4 +89,4 @@ An exemple of Gallery's layout :
 
 <img src="https://live.staticflickr.com//65535//49595136583_f326bc8ef5_n.jpg" width="45%" alt="layout"/> <img src="https://live.staticflickr.com//65535//49595636006_ce5a2e029a_n.jpg" width="45%" alt="layout"/>
 
-<img src="https:\/\/live.staticflickr.com\/65535\/49595635976_7d941dac9e_n.jpg" width="45%" alt="layout"/> <img src="https:\/\/live.staticflickr.com\/65535\/49595136513_235b10c43e_n.jpg" width="45%" alt="layout"/>
+<img src="https://live.staticflickr.com//65535//49595635976_7d941dac9e_n.jpg" width="45%" alt="layout"/> <img src="https://live.staticflickr.com/65535/49595136513_235b10c43e_n.jpg" width="45%" alt="layout"/>
