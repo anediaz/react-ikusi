@@ -7537,6 +7537,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"classnames@npm:^2.3.2":
+  version: 2.3.2
+  resolution: "classnames@npm:2.3.2"
+  checksum: ecbd166e986b9095e01eba91958907ed43026e35aac98d667a9e958642795632c15a88f36785c66bcfbe05df32e47c1575d22faa46c29de271b013eb00202498
+  languageName: node
+  linkType: hard
+
 "clean-css@npm:^5.2.2":
   version: 5.3.2
   resolution: "clean-css@npm:5.3.2"
@@ -16567,6 +16574,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:^6.1.4"
     "@testing-library/react": "npm:^14.0.0"
     babel-loader: "npm:8.1.0"
+    classnames: "npm:^2.3.2"
     eslint: "npm:^8.52.0"
     eslint-config-airbnb: "npm:^18.2.1"
     eslint-plugin-import: "npm:^2.22.1"

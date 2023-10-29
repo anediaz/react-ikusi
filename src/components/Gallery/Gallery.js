@@ -11,30 +11,8 @@ import {
   defaultConfigurations, DEFAULT_COLS, DEFAULT_MARGIN, getChunks,
 } from './utils';
 
-const Wrapper = styled.div`
-  margin-top: 0.2rem;
-  width: 100%;
-  outline: none;
-`;
-
-const LineContainer = styled.div`
-  width: 100%;
-  margin: ${(props) => `${props.margin}px 0`};
-  display: flex;
-  justify-content: space-evenly;
-  text-align: center;
-  height: ${(props) => `${props.height}px`};
-`;
-
-const Item = styled.img`
-  height: 100%;
-  width: auto;
-  display: ${(props) => (props.isLoading ? 'none' : 'flex')};
-  &:hover {
-    cursor: ${(props) => (props.clickable ? 'pointer' : 'default')};
-    opacity: ${(props) => (props.clickable ? '0.5' : '1')};
-  }
-`;
+import './gallery.css';
+import classnames from 'classnames';
 
 const getChosenConfiguration = (configurations, width) => {
   const propsConfiguration = configurations.find(
@@ -48,6 +26,7 @@ const getChosenConfiguration = (configurations, width) => {
   };
 };
 
+const MAIN_CLASS = 'gallery'
 const Gallery = ({
   photos, configurations = defaultConfigurations, withLightbox = true, onClickPhoto = () => {},
 }) => {
@@ -77,7 +56,6 @@ const Gallery = ({
   }, [configurations]);
 
   const closeLightbox = () => setSelectedImgId(null);
-
   const isFirst = () => selectedImgId === 0;
   const isLast = () => selectedImgId === photos.length - 1;
   const next = () => (!isLast() ? setSelectedImgId(selectedImgId + 1) : null);
@@ -126,37 +104,39 @@ const Gallery = ({
 
   const chunks = getChunks(configuration, photos);
   return (
-    <Wrapper ref={wrapperRef} onKeyDown={onKeyDown} tabIndex="0">
+    <div ref={wrapperRef} onKeyDown={onKeyDown} tabIndex="0" className={MAIN_CLASS}>
       {isLoading && <Loader />}
       {photos.length ? (
         <>
           {chunks.map((chunk, chunkIndex) => (chunk.lineHeight && (
-            <LineContainer
-              height={chunk.lineHeight}
-              margin={configuration.margin}
+            <div
+              style = {{height:`${chunk.lineHeight}px`, margin: `${configuration.margin}px 0`}}
               key={`line-${chunkIndex}`}
+              className={`${MAIN_CLASS}_line-container`}
             >
               {chunk.photos.map((photo, imgIndex) => {
                 const index = chunkIndex * configuration.cols + imgIndex;
+                const itemClassName = `${MAIN_CLASS}_line-container_item`
                 return (
-                  <Item
+                  <img
                     src={photo.src}
                     alt={`picture with id ${photo.id}`}
                     key={`item-${photo.id}`}
                     onClick={() => handleOnImageClick(index, photo.id)}
                     clickable={withLightbox}
                     ref={imagesRefs[index]}
+                    className={classnames(itemClassName, {[`${itemClassName}--is-clickable`]: withLightbox })}
                   />
                 );
               })}
-            </LineContainer>
+            </div>
           )))}
           {displayLightBox()}
         </>
       ) : (
         <></>
       )}
-    </Wrapper>
+    </div>
   );
 };
 

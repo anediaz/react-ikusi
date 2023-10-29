@@ -1,0 +1,27 @@
+.gallery {
+  margin-top: 0.2rem;
+  width: 100%;
+  outline: none;
+}
+.gallery_line-container {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  width: 100%;
+}
+
+.gallery_line-container_item {
+  height: 100%;
+  width: auto;
+  display: flex;
+}
+
+.gallery_line-container_item:hover {
+  cursor: default;
+  opacity: 1;
+}
+
+.gallery_line-container_item--is-clickable:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
