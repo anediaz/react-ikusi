@@ -52,13 +52,20 @@ const Gallery = ({
   photos, configurations = defaultConfigurations, withLightbox = true, onClickPhoto = () => {},
 }) => {
   const wrapperRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedImgId, setSelectedImgId] = useState(null);
   const [configuration, setConfiguration] = useState(
     getChosenConfiguration(configurations, window.screen.width),
   );
-  const [loadedImages, setLoadedImages] = useState([]);
+  const imagesRefs = photos.map(() => React.useRef());
 
   const getWidth = () => wrapperRef.current.offsetWidth || 0;
+  useEffect(() => {
+    const notCompleted = imagesRefs.filter((ref) => !ref.current || !ref.current.complete);
+    if (!notCompleted.length) {
+      setIsLoading(false);
+    }
+  }, [imagesRefs]);
   useEffect(() => {
     const handleResize = _.debounce(
       () => setConfiguration(getChosenConfiguration(configurations, getWidth())),
@@ -101,11 +108,6 @@ const Gallery = ({
     onClickPhoto(photoId);
   };
 
-  const isLoading = () => loadedImages.length < photos.length;
-  const handleOnImageLoad = (id) => {
-    setLoadedImages(loadedImages.push(id));
-  };
-
   const displayLightBox = () => {
     if (withLightbox && selectedImgId !== null) {
       const imageToDisplay = lightboxImage(selectedImgId);
@@ -125,7 +127,7 @@ const Gallery = ({
   const chunks = getChunks(configuration, photos);
   return (
     <Wrapper ref={wrapperRef} onKeyDown={onKeyDown} tabIndex="0">
-      {isLoading() && <Loader />}
+      {isLoading && <Loader />}
       {photos.length ? (
         <>
           {chunks.map((chunk, chunkIndex) => (chunk.lineHeight && (
@@ -143,8 +145,7 @@ const Gallery = ({
                     key={`item-${photo.id}`}
                     onClick={() => handleOnImageClick(index, photo.id)}
                     clickable={withLightbox}
-                    onLoad={() => handleOnImageLoad(photo.id)}
-                    isLoading={isLoading()}
+                    ref={imagesRefs[index]}
                   />
                 );
               })}
