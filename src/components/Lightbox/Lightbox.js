@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import LoaderInline from '../Loader/LoaderInline';
 import LightboxPropTypes from './LightboxPropTypes';
 import CloseIcon from './assets/CloseIcon';

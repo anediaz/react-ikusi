@@ -3,7 +3,6 @@ import React, {
   useState, useEffect, useRef,
 } from 'react';
 import _ from 'underscore';
-import styled from 'styled-components';
 import GalleryPropTypes from './GalleryPropTypes';
 import Loader from '../Loader/Loader';
 import Ligthbox from '../Lightbox/Lightbox';
