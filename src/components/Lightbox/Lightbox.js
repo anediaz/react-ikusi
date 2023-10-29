@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import LoaderInline from '../Loader/LoaderInline';
 import LightboxPropTypes from './LightboxPropTypes';
-import { ReactComponent as CloseIcon } from './assets/close.svg';
-import { ReactComponent as LeftIcon } from './assets/left.svg';
-import { ReactComponent as RightIcon } from './assets/right.svg';
+import CloseIcon from './assets/CloseIcon';
+import LeftIcon from './assets/LeftIcon';
+import RightIcon from './assets/RightIcon';
 
 const Wrapper = styled.div`
   display: ${(props) => (!props.isActive ? 'none' : 'flex')};
@@ -98,19 +98,19 @@ const Ligthbox = ({
       {isLoading && <LoaderInline />}
       <Modal isLoading={isLoading}>
         <IconContainer data-testid="close-button" alt="close" onClick={() => onClose()} size="big">
-          <CloseIcon />
+          <CloseIcon name="close" />
         </IconContainer>
       </Modal>
       <Content isLoading={isLoading}>
         <ButtonContainer data-testid="prev-button" alt="prev" enabled={Boolean(onPrev)}>
           <IconContainer onClick={() => (onPrev ? handleOnPrev() : null)}>
-            <LeftIcon />
+            <LeftIcon name="left" />
           </IconContainer>
         </ButtonContainer>
         <Image src={img} isLoading={isLoading} alt={`lightbox of the selected picture with id ${id}`} onLoad={handleOnLoad} />
         <ButtonContainer data-testid="next-button" alt="next" enabled={Boolean(onNext)}>
           <IconContainer onClick={() => (onNext ? handleOnNext() : null)}>
-            <RightIcon />
+            <RightIcon name="right" />
           </IconContainer>
         </ButtonContainer>
       </Content>

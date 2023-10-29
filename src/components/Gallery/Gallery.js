@@ -56,7 +56,7 @@ const Gallery = ({
   const [configuration, setConfiguration] = useState(
     getChosenConfiguration(configurations, window.screen.width),
   );
-  const [countLoaded, setCountLoaded] = useState(0);
+  const [loadedImages, setLoadedImages] = useState([]);
 
   const getWidth = () => wrapperRef.current.offsetWidth || 0;
   useEffect(() => {
@@ -101,9 +101,9 @@ const Gallery = ({
     onClickPhoto(photoId);
   };
 
-  const isLoading = () => countLoaded < photos.length;
-  const handleOnImageLoad = () => {
-    setCountLoaded(countLoaded + 1);
+  const isLoading = () => loadedImages.length < photos.length;
+  const handleOnImageLoad = (id) => {
+    setLoadedImages(loadedImages.push(id));
   };
 
   const displayLightBox = () => {
@@ -143,7 +143,7 @@ const Gallery = ({
                     key={`item-${photo.id}`}
                     onClick={() => handleOnImageClick(index, photo.id)}
                     clickable={withLightbox}
-                    onLoad={() => handleOnImageLoad()}
+                    onLoad={() => handleOnImageLoad(photo.id)}
                     isLoading={isLoading()}
                   />
                 );
