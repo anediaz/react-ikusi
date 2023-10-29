@@ -5,74 +5,10 @@ import LightboxPropTypes from './LightboxPropTypes';
 import CloseIcon from './assets/CloseIcon';
 import LeftIcon from './assets/LeftIcon';
 import RightIcon from './assets/RightIcon';
+import classnames from 'classnames';
+import './lightbox.css';
 
-const Wrapper = styled.div`
-  display: ${(props) => (!props.isActive ? 'none' : 'flex')};
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  align-items: center;
-  left: 0px;
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  z-index: 2001;
-  background: rgba(0, 0, 0, 0.8);
-`;
-const Modal = styled.div`
-  width: 100%;
-  overflow: auto;
-  text-align: center;
-  display: ${(props) => (props.isLoading && 'none')};
-`;
-
-const Content = styled.div`
-  text-align: center;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  display: ${(props) => (props.isLoading ? 'none' : 'flex')};
-  @media (orientation: landscape) {
-    height: 75%;
-  }
-  @media (orientation: portrait) {
-    max-height: 60%;
-  }
-`;
-
-const Image = styled.img`
-  margin: 0 auto;
-  max-height: 100%;
-  max-width: 80%;
-  display: ${(props) => (props.isLoading ? 'none' : 'flex')};
-`;
-
-const ButtonContainer = styled.div`
-  width: 5%;
-  visibility: ${(props) => (!props.enabled ? 'hidden' : 'visible')};
-  @media (orientation: portrait) {
-    margin: 0 auto;
-  }
-`;
-
-const IconContainer = styled.div`
-  svg{
-    fill: white;
-    width: ${(props) => (props.size === 'small' ? '35px' : '45px')};
-    height: auto;
-    opacity: .8;
-    margin-bottom: 1rem;
-    &:hover {
-      cursor: pointer;
-    }
-    @media (max-width: 768px) {
-      width: ${(props) => (props.size === 'small' ? '35px' : '40px')};
-    }
-    @media (min-width: 1920px) {
-      width: 125px;
-    }
-  }
-`;
+const MAIN_CLASS = 'lightbox';
 
 const Ligthbox = ({
   img, id, onClose = () => {}, onNext, onPrev,
@@ -93,28 +29,33 @@ const Ligthbox = ({
     setIsLoading(true);
   };
 
+  const modalClassName = `${MAIN_CLASS}_modal`;
+  const contentClassName = `${MAIN_CLASS}_content`;
+  const imageClassName = `${contentClassName}_image`;
+  const buttonClassName = `${contentClassName}_button-container`;
+  const iconClassName = `${modalClassName}_icon-container`;
   return (
-    <Wrapper isActive={Boolean(img)}>
+    <div className={classnames(MAIN_CLASS, {[`${MAIN_CLASS}--is-not-active`]:!Boolean(img)})}>
       {isLoading && <LoaderInline />}
-      <Modal isLoading={isLoading}>
-        <IconContainer data-testid="close-button" alt="close" onClick={() => onClose()} size="big">
+      <div className={classnames(modalClassName,{[`${modalClassName}--is-loading`]: isLoading})}>
+        <div data-testid="close-button" alt="close" className={iconClassName} onClick={() => onClose()}>
           <CloseIcon name="close" />
-        </IconContainer>
-      </Modal>
-      <Content isLoading={isLoading}>
-        <ButtonContainer data-testid="prev-button" alt="prev" enabled={Boolean(onPrev)}>
-          <IconContainer onClick={() => (onPrev ? handleOnPrev() : null)}>
+        </div>
+      </div>
+      <div className={classnames(contentClassName,{[`${contentClassName}--is-loading`]: isLoading})}>
+        <div className={classnames(buttonClassName, {[`${buttonClassName}--is-enabled`]:Boolean(onPrev)})} data-testid="prev-button" alt="prev">
+          <div onClick={() => (onPrev ? handleOnPrev() : null)} className={iconClassName}>
             <LeftIcon name="left" />
-          </IconContainer>
-        </ButtonContainer>
-        <Image src={img} isLoading={isLoading} alt={`lightbox of the selected picture with id ${id}`} onLoad={handleOnLoad} />
-        <ButtonContainer data-testid="next-button" alt="next" enabled={Boolean(onNext)}>
-          <IconContainer onClick={() => (onNext ? handleOnNext() : null)}>
+          </div>
+        </div>
+        <img src={img} className={classnames(imageClassName,{[`${imageClassName}--is-loading`]: isLoading})} alt={`lightbox of the selected picture with id ${id}`} onLoad={handleOnLoad} />
+        <div className={classnames(buttonClassName, {[`${buttonClassName}--is-enabled`]:Boolean(onNext)})} data-testid="next-button" alt="next">
+          <div onClick={() => (onNext ? handleOnNext() : null)} className={iconClassName}>
             <RightIcon name="right" />
-          </IconContainer>
-        </ButtonContainer>
-      </Content>
-    </Wrapper>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

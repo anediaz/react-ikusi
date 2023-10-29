@@ -123,7 +123,6 @@ const Gallery = ({
                     alt={`picture with id ${photo.id}`}
                     key={`item-${photo.id}`}
                     onClick={() => handleOnImageClick(index, photo.id)}
-                    clickable={withLightbox}
                     ref={imagesRefs[index]}
                     className={classnames(itemClassName, {[`${itemClassName}--is-clickable`]: withLightbox })}
                   />

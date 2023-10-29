@@ -1,0 +1,87 @@
+.lightbox {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  left: 0px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 2001;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.lightbox--is-not-active {
+    display: none;
+}
+
+.lightbox_modal {
+  display: inline;
+  width: 100%;
+  overflow: auto;
+  text-align: center;
+}
+.lightbox_modal--is-loading {
+  display: none;
+}
+
+.lightbox_content {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  @media (orientation: landscape) {
+    height: 75%;
+  }
+  @media (orientation: portrait) {
+    max-height: 60%;
+  }
+}
+
+.lightbox_content--is-loading {
+  display: none;
+}
+
+.lightbox_content_image {
+  margin: 0 auto;
+  max-height: 100%;
+  max-width: 80%;
+  display: flex;
+}
+
+.lightbox_content_image--is-loading {
+  display: none;
+}
+
+.lightbox_content_button-container {
+  width: 5%;
+  visibility: hidden;
+  @media (orientation: portrait) {
+    margin: 0 auto;
+  }
+}
+
+.lightbox_content_button-container--is-enabled {
+    visibility: visible;
+}
+
+.lightbox_modal_icon-container {
+    > svg{
+        fill: white;
+        width: 45px;
+        height: auto;
+        opacity: .8;
+        margin-bottom: 1rem;
+        &:hover {
+          cursor: pointer;
+        }
+        @media (max-width: 768px) {
+          width: 40px;
+        }
+        @media (min-width: 1920px) {
+          width: 125px;
+        }
+      }
+}
