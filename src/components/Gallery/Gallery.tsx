@@ -10,9 +10,9 @@ import {
 import './gallery.css';
 import classnames from 'classnames';
 
-export type NonEmptyArray<T> = [T, ...T[]];
+type NonEmptyArray<T> = [T, ...T[]];
 
-export interface Configuration {
+interface Configuration {
   maxWidth?:number;
   minWidth?:number;
   cols:number;
@@ -23,6 +23,9 @@ export interface GalleryConfiguration extends Configuration {
   width: number;
 }
 
+export type NonEmptyPhotos = NonEmptyArray<PhotoProps>;
+export type NonEmptyConfigurations = NonEmptyArray<Configuration>;
+
 export interface PhotoProps {
   src: string;
   bigSrc?: string;
@@ -32,13 +35,19 @@ export interface PhotoProps {
 }
 
 export interface GalleryProps {
-  configurations?: NonEmptyArray<Configuration>;
+  configurations?: NonEmptyConfigurations;
   withLightbox?:boolean;
-  photos: NonEmptyArray<PhotoProps>;
+  photos: NonEmptyPhotos;
   onClickPhoto?: (id:string) => void
 }
 
-const getChosenConfiguration = (configurations:Configuration[], width:number):GalleryConfiguration => {
+/**
+ * Get the Configuration that better matches with the given width for the Gallery display
+ * @param configurations An array of available Configurations
+ * @param width The width where Gallery will be rendered
+ * @returns A Configuration
+ */
+const getConfigurationForAGivenWidth = (configurations:Configuration[], width:number):GalleryConfiguration => {
   const propsConfiguration = configurations.find(
     ({ minWidth, maxWidth }) => ((minWidth && minWidth <= width) || !minWidth)
       && ((maxWidth && maxWidth >= width) || !maxWidth),
@@ -61,33 +70,37 @@ export const Gallery = ({
   const [isLoading, setIsLoading] = React.useState(true);
   const [selectedImgIndex, setSelectedImgIndex] = React.useState<number | null>(null);
   const [configuration, setConfiguration] = React.useState<GalleryConfiguration>(
-    getChosenConfiguration(configurations, window.screen.width),
+    getConfigurationForAGivenWidth(configurations, window.screen.width),
   );
   const imagesRefs = React.useRef<(HTMLImageElement | null)[]>([])
 
 
-  const getWidth = () => wrapperRef.current?.offsetWidth || 0;
+  // checks when all the images have been rendered to set isLoading state to false
   React.useEffect(() => {
     const notCompleted = imagesRefs.current.filter((ref) => !ref || !ref.complete);
     if (!notCompleted.length) {
       setIsLoading(false);
     }
   }, [imagesRefs]);
+
+  // listens to dimensions of the component within Gallery is rendered
+  // and resizes if needed, using the most appropriate configuration
   React.useEffect(() => {
+    const getGalleryRenderWidth = () => wrapperRef.current?.offsetWidth || 0;
     const handleResize = _.debounce(
-      () => setConfiguration(getChosenConfiguration(configurations, getWidth())),
+      () => setConfiguration(getConfigurationForAGivenWidth(configurations, getGalleryRenderWidth())),
       400,
     );
     window.addEventListener('resize', handleResize);
-    setConfiguration(getChosenConfiguration(configurations, getWidth()));
+    setConfiguration(getConfigurationForAGivenWidth(configurations, getGalleryRenderWidth()));
     return () => window.removeEventListener('resize', handleResize);
   }, [configurations]);
 
   const closeLightbox = () => setSelectedImgIndex(null);
   const isFirst = () => selectedImgIndex === 0;
   const isLast = () => selectedImgIndex === photos.length - 1;
-  const next = () => (selectedImgIndex !== null && !isLast() ? setSelectedImgIndex(selectedImgIndex + 1) : null);
-  const prev = () => (selectedImgIndex !== null && !isFirst() ? setSelectedImgIndex(selectedImgIndex - 1) : null);
+  const selectNext = () => (selectedImgIndex !== null && !isLast() ? setSelectedImgIndex(selectedImgIndex + 1) : null);
+  const selectPrev = () => (selectedImgIndex !== null && !isFirst() ? setSelectedImgIndex(selectedImgIndex - 1) : null);
   const getLightboxImage = (index:number) => {
     if(index !== null && photos.length >= index){
       return photos[index];
@@ -96,14 +109,14 @@ export const Gallery = ({
   }
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!Number.isNaN(selectedImgIndex)) {
-      switch (e.keyCode) {
-        case 37: // left
-          prev();
+      switch (e.key) {
+        case "ArrowLeft": // left
+          selectPrev();
           break;
-        case 39: // right
-          next();
+        case "ArrowRight": // right
+          selectNext();
           break;
-        case 27: // ESC
+        case "Escape": // ESC
           closeLightbox();
           break;
         default:
@@ -129,8 +142,8 @@ export const Gallery = ({
           img={imageToDisplay.bigSrc || imageToDisplay.src}
           id={imageToDisplay.id}
           onClose={closeLightbox}
-          onNext={!isLast() ? next : undefined}
-          onPrev={!isFirst() ? prev : undefined}
+          onNext={!isLast() ? selectNext : undefined}
+          onPrev={!isFirst() ? selectPrev : undefined}
         />
       );
     }

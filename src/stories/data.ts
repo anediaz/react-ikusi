@@ -1,6 +1,6 @@
-import { NonEmptyArray, PhotoProps } from "../components/Gallery/Gallery";
+import { NonEmptyPhotos } from "../components/Gallery/Gallery";
 
-const photos:NonEmptyArray<PhotoProps> = [
+const photos:NonEmptyPhotos = [
   {
     src: 'https://live.staticflickr.com/65535/52345190971_bb3d78cef4_o.jpg',
     height: 601,

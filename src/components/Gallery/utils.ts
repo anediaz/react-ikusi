@@ -1,6 +1,6 @@
-import { Configuration, GalleryConfiguration, NonEmptyArray, PhotoProps } from "./Gallery";
+import { GalleryConfiguration, NonEmptyConfigurations, PhotoProps } from "./Gallery";
 
-const defaultConfigurations: NonEmptyArray<Configuration> = [
+const defaultConfigurations: NonEmptyConfigurations = [
   { maxWidth: 340, cols: 4, margin: 1 },
   { maxWidth: 1024, cols: 6, margin: 1 },
   { minWidth: 1025, cols: 12, margin: 1 },
@@ -8,6 +8,13 @@ const defaultConfigurations: NonEmptyArray<Configuration> = [
 const DEFAULT_COLS = 7;
 const DEFAULT_MARGIN = 1;
 
+
+/**
+ * Calculates the line height to apply to all photos, for the given Configuration, to render it in a masonry layout
+ * @param configuration Configuration that defines Gallery display details
+ * @param photosToLineHeight Photos to take into account in the line height calculation
+ * @returns The line height all the given photos should have
+ */
 const getLineHeight = (configuration:GalleryConfiguration, photosToLineHeight:PhotoProps[]):number => {
   const { width: screenWidth, cols, margin } = configuration;
   let ratioSum = 0;
@@ -24,6 +31,13 @@ export interface ChunkProps{
   photos: PhotoProps[],
   lineHeight:number
 }
+
+/**
+ * Splits the list of photos into chunks, containing the same line height
+ * @param configuration The chosen Gallery Configuration
+ * @param photosToChunk The list of photos to display
+ * @returns A list of chunks, each containing the amount of photos defined by 'cols', and the lineHeight for the line rendering
+ */
 const getChunks = (configuration:GalleryConfiguration, photosToChunk:PhotoProps[]):ChunkProps[] => {
   const newPhotos = [...photosToChunk];
   const chunks = [];

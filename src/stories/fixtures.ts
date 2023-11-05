@@ -1,4 +1,4 @@
-import { Configuration, GalleryProps, NonEmptyArray } from '../components/Gallery/Gallery';
+import { GalleryProps, NonEmptyConfigurations } from '../components/Gallery/Gallery';
 import photos from './data';
 
 export const BasicArgs = {
@@ -11,7 +11,7 @@ export const NoLightboxArgs = {
    withLightbox:false
 } as GalleryProps;
 
-const configurations:NonEmptyArray<Configuration> = [
+const configurations:NonEmptyConfigurations = [
     { maxWidth: 340, cols: 3, margin: 1 },
     { maxWidth: 1024, cols: 3, margin: 1 },
     { minWidth: 1025, cols: 3, margin: 1 },
