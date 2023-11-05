@@ -1,31 +1,42 @@
-import React, { useState } from 'react';
-import LoaderInline from '../Loader/LoaderInline';
-import LightboxPropTypes from './LightboxPropTypes';
-import CloseIcon from './assets/CloseIcon';
-import LeftIcon from './assets/LeftIcon';
-import RightIcon from './assets/RightIcon';
+import * as React from 'react';
+import {LoaderInline} from '../Loader/LoaderInline';
+import {CloseIcon} from './assets/CloseIcon';
+import {LeftIcon} from './assets/LeftIcon';
+import {RightIcon} from './assets/RightIcon';
 import classnames from 'classnames';
 import './lightbox.css';
 
 const MAIN_CLASS = 'lightbox';
 
-const Ligthbox = ({
+interface LightBoxProps {
+  img: string;
+  id: string;
+  onClose: () => void;
+  onNext?: () => void;
+  onPrev?: () => void;
+}
+
+export const Ligthbox = ({
   img, id, onClose = () => {}, onNext, onPrev,
-}) => {
-  const [isLoading, setIsLoading] = useState(true);
+}:LightBoxProps) => {
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const handleOnLoad = () => {
     setIsLoading(false);
   };
 
   const handleOnNext = () => {
-    onNext();
-    setIsLoading(true);
+    if(onNext){
+      onNext();
+      setIsLoading(true);
+    }
   };
 
   const handleOnPrev = () => {
-    onPrev();
-    setIsLoading(true);
+    if(onPrev){
+      onPrev();
+      setIsLoading(true);
+    }
   };
 
   const modalClassName = `${MAIN_CLASS}_modal`;
@@ -37,19 +48,19 @@ const Ligthbox = ({
     <div className={classnames(MAIN_CLASS, {[`${MAIN_CLASS}--is-not-active`]:!Boolean(img)})}>
       {isLoading && <LoaderInline />}
       <div className={classnames(modalClassName,{[`${modalClassName}--is-loading`]: isLoading})}>
-        <div data-testid="close-button" alt="close" className={iconClassName} onClick={() => onClose()}>
+        <div data-testid="close-button" className={iconClassName} onClick={() => onClose()}>
           <CloseIcon name="close" />
         </div>
       </div>
       <div className={classnames(contentClassName,{[`${contentClassName}--is-loading`]: isLoading})}>
-        <div className={classnames(buttonClassName, {[`${buttonClassName}--is-enabled`]:Boolean(onPrev)})} data-testid="prev-button" alt="prev">
-          <div onClick={() => (onPrev ? handleOnPrev() : null)} className={iconClassName}>
+        <div className={classnames(buttonClassName, {[`${buttonClassName}--is-enabled`]:Boolean(onPrev)})} data-testid="prev-button">
+          <div onClick={() => (handleOnPrev())} className={iconClassName}>
             <LeftIcon name="left" />
           </div>
         </div>
         <img src={img} className={classnames(imageClassName,{[`${imageClassName}--is-loading`]: isLoading})} alt={`lightbox of the selected picture with id ${id}`} onLoad={handleOnLoad} />
-        <div className={classnames(buttonClassName, {[`${buttonClassName}--is-enabled`]:Boolean(onNext)})} data-testid="next-button" alt="next">
-          <div onClick={() => (onNext ? handleOnNext() : null)} className={iconClassName}>
+        <div className={classnames(buttonClassName, {[`${buttonClassName}--is-enabled`]:Boolean(onNext)})} data-testid="next-button">
+          <div onClick={() => (handleOnNext())} className={iconClassName}>
             <RightIcon name="right" />
           </div>
         </div>
@@ -57,6 +68,3 @@ const Ligthbox = ({
     </div>
   );
 };
-
-Ligthbox.propTypes = LightboxPropTypes;
-export default Ligthbox;

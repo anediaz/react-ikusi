@@ -1,20 +1,21 @@
-import { getChunks } from '../components/Gallery/utils';
+import { GalleryConfiguration, PhotoProps } from '../components/Gallery/Gallery';
+import { ChunkProps, getChunks } from '../components/Gallery/utils';
 
 let screenWidth = 2700;
 let cols = 4;
 const margin = 1;
-const photos = [
-  { width: 200, height: 400 },
-  { width: 400, height: 200 },
-  { width: 200, height: 400 },
-  { width: 100, height: 400 },
-  { width: 50, height: 400 },
-  { width: 400, height: 100 },
+const photos:PhotoProps[] = [
+  { width: 200, height: 400, id:'001', src:'/url-to-img' },
+  { width: 400, height: 200, id:'002', src:'/url-to-img' },
+  { width: 200, height: 400, id:'003', src:'/url-to-img' },
+  { width: 100, height: 400, id:'004', src:'/url-to-img' },
+  { width: 50, height: 400, id:'005', src:'/url-to-img' },
+  { width: 400, height: 100, id:'006', src:'/url-to-img' },
 ];
 
-const getWidth = (photo, lineHeight) => (lineHeight * photo.width) / photo.height;
+const getWidth = (photo: PhotoProps, lineHeight:number) => (lineHeight * photo.width) / photo.height;
 
-const photosWidthSum = ({ photos: chunkPhotos, lineHeight }) => {
+const photosWidthSum = ({ photos: chunkPhotos, lineHeight }:ChunkProps) => {
   let widthSum = margin;
   chunkPhotos.forEach((p) => {
     widthSum += getWidth(p, lineHeight) + margin;
@@ -22,7 +23,7 @@ const photosWidthSum = ({ photos: chunkPhotos, lineHeight }) => {
   return widthSum;
 };
 
-const verifyLineHeight = (chunk, widthToCheck) => {
+const verifyLineHeight = (chunk:ChunkProps, widthToCheck:number) => {
   // Get the sum of a line's photos widths after applying the LineHeight
   const lineWidthSum = photosWidthSum(chunk);
   // Verify if the sum fits in the screen width

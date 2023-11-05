@@ -2,11 +2,11 @@ import React from 'react';
 import {
   render, fireEvent, screen,
 } from '@testing-library/react';
-import { Default, NoLightbox } from '../stories/Gallery.stories';
+import { BasicArgs, Basic, NoLightbox, NoLightboxArgs } from '../stories/Gallery.stories';
 
 test('loads and displays Gallery', async () => {
   // Arrange
-  render(<Default {...Default.args} />);
+  render(<Basic {...BasicArgs} />);
 
   // Assert: show loader
   const loader = await screen.findByRole('progressbar');
@@ -14,7 +14,7 @@ test('loads and displays Gallery', async () => {
 
   // Assert: images appear
   const items = await screen.findAllByAltText((content) => content.startsWith('picture with id'));
-  expect(items).toHaveLength(Default.args.photos.length);
+  expect(items).toHaveLength(BasicArgs.photos.length);
 
   // Assert: loading spinner no longer exists
   const hiddenLoadingSpinner = screen.queryByAltText('progressbar');
@@ -23,7 +23,7 @@ test('loads and displays Gallery', async () => {
 
 test('displays a lightbox when clicking on a picture', async () => {
   // Arrange: click on a picture
-  render(<Default {...Default.args} />);
+  render(<Basic {...BasicArgs} />);
   const picture = screen.getByAltText('picture with id 3');
   fireEvent.click(picture);
 
@@ -44,8 +44,8 @@ test('displays a lightbox when clicking on a picture', async () => {
 
 test('lightbox contains navigation and close buttons', async () => {
   // Arrange: Click on the first picture and display lightbox (for a 2 photos Gallery)
-  const [photo1, photo2] = Default.args.photos;
-  render(<Default photos={[photo1, photo2]} />);
+  const [photo1, photo2] = BasicArgs.photos;
+  render(<Basic photos={[photo1, photo2]} />);
   const picture = screen.getByAltText('picture with id 1');
   fireEvent.click(picture);
 
@@ -56,8 +56,8 @@ test('lightbox contains navigation and close buttons', async () => {
 
   // Assert: only next and close buttons appear (as it is the first picture)
   expect(screen.getByTestId('close-button')).toBeInTheDocument();
-  expect(screen.getByTestId('next-button')).toBeInTheDocument();
-  expect(screen.getByTestId('prev-button')).not.toBeVisible();
+  expect(screen.getByTestId('next-button')).toHaveClass('lightbox_content_button-container--is-enabled');
+  expect(screen.getByTestId('prev-button')).not.toHaveClass('lightbox_content_button-container--is-enabled');
 
   // Arrange: click on 'next' button
   const lightbox = await screen.findByAltText('lightbox of the selected picture with id 1');
@@ -73,8 +73,8 @@ test('lightbox contains navigation and close buttons', async () => {
   expect(screen.queryByAltText('lightbox of the selected picture with id 1')).toBeNull();
   // Assert: prev & close appear. next is not present (as it is the last picture)
   expect(screen.getByTestId('close-button')).toBeInTheDocument();
-  expect(screen.getByTestId('prev-button')).toBeInTheDocument();
-  expect(screen.getByTestId('next-button')).not.toBeVisible();
+  expect(screen.getByTestId('prev-button')).toHaveClass('lightbox_content_button-container--is-enabled');
+  expect(screen.getByTestId('next-button')).not.toHaveClass('lightbox_content_button-container--is-enabled');
 
   // Arrange: click on 'prev' button
   fireEvent.keyDown(newLightbox, {
@@ -90,7 +90,7 @@ test('lightbox contains navigation and close buttons', async () => {
 
 test('not display a lightbox if Gallery without lightbox', async () => {
   // Arrange: click on a picture
-  render(<NoLightbox {...NoLightbox.args} />);
+  render(<NoLightbox {...NoLightboxArgs} />);
   const picture = screen.getByAltText('picture with id 3');
   fireEvent.click(picture);
 

@@ -1,0 +1,32 @@
+{
+    "extends": "./tsconfig.paths.json",
+    "compilerOptions": {
+        "target": "es6",
+        "module": "ESNext",
+        // Match ecmaVersion in .eslintrc.js
+        "lib": [
+            "es2023",
+            "dom",
+            "dom.iterable",
+            "es2023.array",
+            "es2022.array"
+        ],
+        "allowJs": true,
+        "jsx": "react",
+        "strict": true,
+        "moduleResolution":"node",
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noImplicitReturns": true,
+        "strictPropertyInitialization": true,
+    },
+    "exclude": [
+        "node_modules",
+        "**/public",
+    ]
+}

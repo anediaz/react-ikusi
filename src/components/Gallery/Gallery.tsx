@@ -1,11 +1,8 @@
-/* eslint-disable react/no-array-index-key */
-import React, {
-  useState, useEffect, useRef,
-} from 'react';
+import * as React from 'react';
+
 import _ from 'underscore';
-import GalleryPropTypes from './GalleryPropTypes';
-import Loader from '../Loader/Loader';
-import Ligthbox from '../Lightbox/Lightbox';
+import {Loader} from '../Loader/Loader';
+import {Ligthbox} from '../Lightbox/Lightbox';
 import {
   defaultConfigurations, DEFAULT_COLS, DEFAULT_MARGIN, getChunks,
 } from './utils';
@@ -13,11 +10,42 @@ import {
 import './gallery.css';
 import classnames from 'classnames';
 
-const getChosenConfiguration = (configurations, width) => {
+export type NonEmptyArray<T> = [T, ...T[]];
+
+export interface Configuration {
+  maxWidth?:number;
+  minWidth?:number;
+  cols:number;
+  margin:number;
+}
+
+export interface GalleryConfiguration extends Configuration {
+  width: number;
+}
+
+export interface PhotoProps {
+  src: string;
+  bigSrc?: string;
+  height: number;
+  width: number;
+  id: string;
+}
+
+export interface GalleryProps {
+  configurations?: NonEmptyArray<Configuration>;
+  withLightbox?:boolean;
+  photos: NonEmptyArray<PhotoProps>;
+  onClickPhoto?: (id:string) => void
+}
+
+const getChosenConfiguration = (configurations:Configuration[], width:number):GalleryConfiguration => {
   const propsConfiguration = configurations.find(
     ({ minWidth, maxWidth }) => ((minWidth && minWidth <= width) || !minWidth)
       && ((maxWidth && maxWidth >= width) || !maxWidth),
   );
+  if (!propsConfiguration){
+    return {width,...configurations[0]};
+  }
   return {
     width,
     cols: propsConfiguration.cols || DEFAULT_COLS,
@@ -26,25 +54,26 @@ const getChosenConfiguration = (configurations, width) => {
 };
 
 const MAIN_CLASS = 'gallery'
-const Gallery = ({
+export const Gallery = ({
   photos, configurations = defaultConfigurations, withLightbox = true, onClickPhoto = () => {},
-}) => {
-  const wrapperRef = useRef(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [selectedImgId, setSelectedImgId] = useState(null);
-  const [configuration, setConfiguration] = useState(
+}:GalleryProps) => {
+  const wrapperRef = React.useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [selectedImgIndex, setSelectedImgIndex] = React.useState<number | null>(null);
+  const [configuration, setConfiguration] = React.useState<GalleryConfiguration>(
     getChosenConfiguration(configurations, window.screen.width),
   );
-  const imagesRefs = photos.map(() => React.useRef());
+  const imagesRefs = React.useRef<(HTMLImageElement | null)[]>([])
 
-  const getWidth = () => wrapperRef.current.offsetWidth || 0;
-  useEffect(() => {
-    const notCompleted = imagesRefs.filter((ref) => !ref.current || !ref.current.complete);
+
+  const getWidth = () => wrapperRef.current?.offsetWidth || 0;
+  React.useEffect(() => {
+    const notCompleted = imagesRefs.current.filter((ref) => !ref || !ref.complete);
     if (!notCompleted.length) {
       setIsLoading(false);
     }
   }, [imagesRefs]);
-  useEffect(() => {
+  React.useEffect(() => {
     const handleResize = _.debounce(
       () => setConfiguration(getChosenConfiguration(configurations, getWidth())),
       400,
@@ -54,15 +83,19 @@ const Gallery = ({
     return () => window.removeEventListener('resize', handleResize);
   }, [configurations]);
 
-  const closeLightbox = () => setSelectedImgId(null);
-  const isFirst = () => selectedImgId === 0;
-  const isLast = () => selectedImgId === photos.length - 1;
-  const next = () => (!isLast() ? setSelectedImgId(selectedImgId + 1) : null);
-  const prev = () => (!isFirst() ? setSelectedImgId(selectedImgId - 1) : null);
-  const lightboxImage = (index) => (index !== null && photos.length >= index && photos[index]);
-
-  const onKeyDown = (e) => {
-    if (!Number.isNaN(selectedImgId)) {
+  const closeLightbox = () => setSelectedImgIndex(null);
+  const isFirst = () => selectedImgIndex === 0;
+  const isLast = () => selectedImgIndex === photos.length - 1;
+  const next = () => (selectedImgIndex !== null && !isLast() ? setSelectedImgIndex(selectedImgIndex + 1) : null);
+  const prev = () => (selectedImgIndex !== null && !isFirst() ? setSelectedImgIndex(selectedImgIndex - 1) : null);
+  const getLightboxImage = (index:number) => {
+    if(index !== null && photos.length >= index){
+      return photos[index];
+    }
+    return null
+  }
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!Number.isNaN(selectedImgIndex)) {
       switch (e.keyCode) {
         case 37: // left
           prev();
@@ -78,23 +111,26 @@ const Gallery = ({
     }
   };
 
-  const handleOnImageClick = (index, photoId) => {
+  const handleOnImageClick = (index:number, photoId:string) => {
     if (withLightbox) {
-      setSelectedImgId(index);
+      setSelectedImgIndex(index);
     }
     onClickPhoto(photoId);
   };
 
   const displayLightBox = () => {
-    if (withLightbox && selectedImgId !== null) {
-      const imageToDisplay = lightboxImage(selectedImgId);
+    if (withLightbox && selectedImgIndex !== null) {
+      const imageToDisplay = getLightboxImage(selectedImgIndex);
+      if(!imageToDisplay) {
+        return null;
+      }
       return (
         <Ligthbox
           img={imageToDisplay.bigSrc || imageToDisplay.src}
           id={imageToDisplay.id}
           onClose={closeLightbox}
-          onNext={!isLast() ? next : null}
-          onPrev={!isFirst() ? prev : null}
+          onNext={!isLast() ? next : undefined}
+          onPrev={!isFirst() ? prev : undefined}
         />
       );
     }
@@ -103,7 +139,7 @@ const Gallery = ({
 
   const chunks = getChunks(configuration, photos);
   return (
-    <div ref={wrapperRef} onKeyDown={onKeyDown} tabIndex="0" className={MAIN_CLASS}>
+    <div ref={wrapperRef} onKeyDown={onKeyDown} tabIndex={0} className={MAIN_CLASS}>
       {isLoading && <Loader />}
       {photos.length ? (
         <>
@@ -122,7 +158,7 @@ const Gallery = ({
                     alt={`picture with id ${photo.id}`}
                     key={`item-${photo.id}`}
                     onClick={() => handleOnImageClick(index, photo.id)}
-                    ref={imagesRefs[index]}
+                    ref={element => imagesRefs.current[index] = element}
                     className={classnames(itemClassName, {[`${itemClassName}--is-clickable`]: withLightbox })}
                   />
                 );
@@ -137,6 +173,3 @@ const Gallery = ({
     </div>
   );
 };
-
-Gallery.propTypes = GalleryPropTypes;
-export default Gallery;
