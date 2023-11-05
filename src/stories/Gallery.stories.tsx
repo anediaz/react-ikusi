@@ -8,6 +8,13 @@ import { BasicArgs, NoLightboxArgs, SmallScreenGalleryArgs } from './fixtures';
 const GalleryStory = {
   title: 'Gallery/Gallery',
   component: GalleryComponent,
+  parameters:{
+    docs:{
+      description: {
+        component: 'React photo displaying component library'
+      },
+    }
+  }
 }as Meta;
 
 const Template: StoryFn<typeof GalleryComponent> = (args:GalleryProps) => <GalleryComponent {...args} />
