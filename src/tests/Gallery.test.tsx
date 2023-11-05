@@ -2,19 +2,20 @@ import React from 'react';
 import {
   render, fireEvent, screen,
 } from '@testing-library/react';
-import { Basic, NoLightbox } from '../stories/Gallery.stories';
+
+import { BasicGallery, WithoutLightbox } from '../stories/Gallery.stories';
 import { BasicArgs, NoLightboxArgs } from '../stories/fixtures';
 
 test('loads and displays Gallery', async () => {
   // Arrange
-  render(<Basic {...BasicArgs} />);
+  render(<BasicGallery {...BasicArgs} />);
 
   // Assert: show loader
   const loader = await screen.findByRole('progressbar');
   expect(loader).toBeInTheDocument();
 
   // Assert: images appear
-  const items = await screen.findAllByAltText((content) => content.startsWith('picture with id'));
+  const items = await screen.findAllByAltText((content:any) => content.startsWith('picture with id'));
   expect(items).toHaveLength(BasicArgs.photos.length);
 
   // Assert: loading spinner no longer exists
@@ -24,7 +25,7 @@ test('loads and displays Gallery', async () => {
 
 test('displays a lightbox when clicking on a picture', async () => {
   // Arrange: click on a picture
-  render(<Basic {...BasicArgs} />);
+  render(<BasicGallery {...BasicArgs} />);
   const picture = screen.getByAltText('picture with id 3');
   fireEvent.click(picture);
 
@@ -46,13 +47,13 @@ test('displays a lightbox when clicking on a picture', async () => {
 test('lightbox contains navigation and close buttons', async () => {
   // Arrange: Click on the first picture and display lightbox (for a 2 photos Gallery)
   const [photo1, photo2] = BasicArgs.photos;
-  render(<Basic photos={[photo1, photo2]} />);
+  render(<BasicGallery photos={[photo1, photo2]} />);
   const picture = screen.getByAltText('picture with id 1');
   fireEvent.click(picture);
 
   // Assert: show loader
   const loaders = screen.getAllByRole('progressbar');
-  const loader = loaders.find((i) => i.getAttribute('aria-valuetext') === 'loader-inline');
+  const loader = loaders.find((i:any) => i.getAttribute('aria-valuetext') === 'loader-inline');
   expect(loader).toBeInTheDocument();
 
   // Assert: only next and close buttons appear (as it is the first picture)
@@ -91,7 +92,7 @@ test('lightbox contains navigation and close buttons', async () => {
 
 test('not display a lightbox if Gallery without lightbox', async () => {
   // Arrange: click on a picture
-  render(<NoLightbox {...NoLightboxArgs} />);
+  render(<WithoutLightbox {...NoLightboxArgs} />);
   const picture = screen.getByAltText('picture with id 3');
   fireEvent.click(picture);
 

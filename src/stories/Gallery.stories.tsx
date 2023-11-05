@@ -5,8 +5,8 @@ import { Meta, StoryFn } from "@storybook/react";
 
 import { BasicArgs, NoLightboxArgs, SmallScreenGalleryArgs } from './fixtures';
 
-const GalleryStory = {
-  title: 'Gallery/Gallery',
+export default {
+  title: 'Gallery',
   component: GalleryComponent,
   parameters:{
     docs:{
@@ -18,14 +18,11 @@ const GalleryStory = {
 }as Meta;
 
 const Template: StoryFn<typeof GalleryComponent> = (args:GalleryProps) => <GalleryComponent {...args} />
-const Basic = Template.bind({})
-Basic.args = BasicArgs;
+export const BasicGallery = Template.bind({})
+BasicGallery.args = BasicArgs;
 
-const NoLightbox = Template.bind({})
-NoLightbox.args = NoLightboxArgs;
+export const WithoutLightbox = Template.bind({})
+WithoutLightbox.args = NoLightboxArgs;
 
-const SmallScreenGallery = Template.bind({})
-SmallScreenGallery.args = SmallScreenGalleryArgs;
-
-export default GalleryStory;
-export { Basic, NoLightbox, SmallScreenGallery };
+export const SmallScreen = Template.bind({})
+SmallScreen.args = SmallScreenGalleryArgs;
