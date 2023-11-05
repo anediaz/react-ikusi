@@ -140,7 +140,7 @@ export const Gallery = ({
   const chunks = getChunks(configuration, photos);
   return (
     <div ref={wrapperRef} onKeyDown={onKeyDown} tabIndex={0} className={MAIN_CLASS}>
-      {isLoading && <Loader />}
+      {isLoading ? <Loader/> : null}
       {photos.length ? (
         <>
           {chunks.map((chunk, chunkIndex) => (chunk.lineHeight && (

@@ -2,7 +2,8 @@ import React from 'react';
 import {
   render, fireEvent, screen,
 } from '@testing-library/react';
-import { BasicArgs, Basic, NoLightbox, NoLightboxArgs } from '../stories/Gallery.stories';
+import { Basic, NoLightbox } from '../stories/Gallery.stories';
+import { BasicArgs, NoLightboxArgs } from '../stories/fixtures';
 
 test('loads and displays Gallery', async () => {
   // Arrange

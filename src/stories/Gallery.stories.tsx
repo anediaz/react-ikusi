@@ -1,58 +1,23 @@
 import React from 'react';
 import { Gallery as GalleryComponent } from '../components';
-import { Configuration, NonEmptyArray } from '../components/Gallery/Gallery';
-import type { ComponentStory, ComponentMeta } from '@storybook/react';
-import photos from './data';
+import { GalleryProps } from '../components/Gallery/Gallery';
+import { Meta, StoryFn } from "@storybook/react";
 
-
-const Template: ComponentStory<typeof GalleryComponent> = (
-    args,
-) => {
-    return (
-        <GalleryComponent {...args} />);
-};
-
-const Basic: typeof Template = Template.bind(
-    {},
-);
-
-export const BasicArgs = {
-  photos,
-  withLightbox:true
-}
-
-Basic.args = BasicArgs;
+import { BasicArgs, NoLightboxArgs, SmallScreenGalleryArgs } from './fixtures';
 
 const GalleryStory = {
   title: 'Gallery/Gallery',
   component: GalleryComponent,
-} as ComponentMeta<typeof GalleryComponent>;
+}as Meta;
 
-const NoLightbox: typeof Template = Template.bind(
-  {},
-);
+const Template: StoryFn<typeof GalleryComponent> = (args:GalleryProps) => <GalleryComponent {...args} />
+const Basic = Template.bind({})
+Basic.args = BasicArgs;
 
-export const NoLightboxArgs = {
-  photos,
-  withLightbox:false
-}
-
+const NoLightbox = Template.bind({})
 NoLightbox.args = NoLightboxArgs;
 
-const configurations:NonEmptyArray<Configuration> = [
-  { maxWidth: 340, cols: 3, margin: 1 },
-  { maxWidth: 1024, cols: 3, margin: 1 },
-  { minWidth: 1025, cols: 3, margin: 1 },
-];
-
-const SmallScreenGallery: typeof Template = Template.bind(
-  {},
-);
-export const SmallScreenGalleryArgs = {
-  photos,
-  withLightbox: true,
-  configurations,
-};
+const SmallScreenGallery = Template.bind({})
 SmallScreenGallery.args = SmallScreenGalleryArgs;
 
 export default GalleryStory;
