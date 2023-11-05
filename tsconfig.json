@@ -1,5 +1,5 @@
 {
-    "extends": "./tsconfig.paths.json",
+    "rootDir": "src",
     "compilerOptions": {
         "target": "es6",
         "module": "ESNext",
@@ -13,9 +13,14 @@
         ],
         "allowJs": true,
         "jsx": "react",
+        "sourceMap": true,
+        "outDir": "dist",
         "strict": true,
         "moduleResolution":"node",
         "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
@@ -24,6 +29,9 @@
         "alwaysStrict": true,
         "noImplicitReturns": true,
         "strictPropertyInitialization": true,
+        "declaration": true,
+        "declarationDir": "types",
+        "emitDeclarationOnly": true
     },
     "exclude": [
         "node_modules",
