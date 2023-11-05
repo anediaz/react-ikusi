@@ -2,9 +2,9 @@
 
 <img src="https://live.staticflickr.com//65535//49596034956_0cd35c0db4_o.png" />
 
-See on &nbsp;&nbsp;[![See on NPM][npm-image]][npm-url]
+<a href="https://www.npmjs.com/package/react-ikusi">See on NPM</a> &nbsp;&nbsp;[![See on NPM][npm-image]][storybook-url]
 
-See on &nbsp;&nbsp;[![See on Storybook][storybook-image]][storybook-url]
+<a href="https://anediaz.github.io/react-ikusi/?path=/docs/react-ikusi--docs">See on Storybook</a> &nbsp;&nbsp;[![See on Storybook][storybook-image]][storybook-url]
 
 #
 
