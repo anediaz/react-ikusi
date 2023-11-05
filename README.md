@@ -10,7 +10,7 @@ See on &nbsp;&nbsp;[![See on Storybook][storybook-image]][storybook-url]
 
 [npm-url]: https://www.npmjs.com/package/react-ikusi
 [npm-image]: https://github.com/anediaz/react-ikusi/assets/17216937/1f2391bf-fae5-4a59-af03-74b9918df37b
-[storybook-url]: http://anediaz.github.io/react-ikusi
+[storybook-url]: https://anediaz.github.io/react-ikusi/?path=/docs/react-ikusi--docs
 [storybook-image]: https://github.com/anediaz/react-ikusi/assets/17216937/48dfea53-4d6c-4d30-b2bf-6670ad9755af
 
 React photo displaying component library
