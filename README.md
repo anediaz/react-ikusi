@@ -2,6 +2,22 @@
 
 <img src="https://live.staticflickr.com//65535//49596034956_0cd35c0db4_o.png" />
 
+<div style="display:flex;align-items:center;gap:28px;">
+    <a href="https://www.npmjs.com/package/react-ikusi">
+      <div style="display:flex;flex;align-items:center;gap:4px">
+        <span>See on</span>
+        <img src="https://github.com/anediaz/react-ikusi/assets/17216937/94c42861-bfcf-401c-881b-ad4861924a42" width="40px" />
+      </div>
+    </a>
+    <a href="http://anediaz.github.io/react-ikusi">
+      <div style="display:flex;align-items:center;gap:4px">
+        <span>See on</span> 
+        <img src="https://github.com/anediaz/react-ikusi/assets/17216937/c8c9b871-b3f2-4406-aedc-0adcf4afb6b7
+  " width="100px" />
+      </div>
+    </a>
+</div>
+
 #
 
 React photo displaying component library
@@ -14,10 +30,6 @@ React photo displaying component library
 
 :bulb: The word **_ikusi_** from the package name react-ikusi means **_see_** in Basque language.
 Click [here](https://en.wikipedia.org/wiki/Basque_language) for more information.
-
-Take a look to the [Storybook](http://anediaz.github.io/react-ikusi)
-
-[NPM page](https://www.npmjs.com/package/react-ikusi)
 
 ## Preview
 
