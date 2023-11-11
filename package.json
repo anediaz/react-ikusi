@@ -1,6 +1,6 @@
 {
   "name": "react-ikusi",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "author": "Ane Diaz de Tuesta",
   "type": "module",
   "description": "React photo displaying component library",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/anediaz/react-ikusi"
+    "url": "git+https://github.com/anediaz/react-ikusi.git"
   },
   "keywords": [
     "react",
