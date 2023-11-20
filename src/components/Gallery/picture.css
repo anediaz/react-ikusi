@@ -2,6 +2,7 @@
     height: 100%;
     width: auto;
     display: flex;
+    background-color: lightgray;
 }
 
 .gallery-picture:hover {
