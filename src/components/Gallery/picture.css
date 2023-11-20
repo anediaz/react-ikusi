@@ -1,0 +1,15 @@
+.gallery-picture {
+    height: 100%;
+    width: auto;
+    display: flex;
+}
+
+.gallery-picture:hover {
+    cursor: default;
+    opacity: 1;
+}
+  
+.gallery-picture--is-clickable:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}

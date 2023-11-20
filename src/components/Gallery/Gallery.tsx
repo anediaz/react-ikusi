@@ -9,6 +9,7 @@ import {
 
 import './gallery.css';
 import classnames from 'classnames';
+import { Picture } from './Picture';
 
 type NonEmptyArray<T> = [T, ...T[]];
 
@@ -164,15 +165,13 @@ export const Gallery = ({
             >
               {chunk.photos.map((photo, imgIndex) => {
                 const index = chunkIndex * configuration.cols + imgIndex;
-                const itemClassName = `${MAIN_CLASS}_line-container_item`
                 return (
-                  <img
-                    src={photo.src}
-                    alt={`picture with id ${photo.id}`}
+                  <Picture
                     key={`item-${photo.id}`}
+                    src={photo.src}
+                    id={photo.id}
                     onClick={() => handleOnImageClick(index, photo.id)}
-                    ref={element => imagesRefs.current[index] = element}
-                    className={classnames(itemClassName, {[`${itemClassName}--is-clickable`]: withLightbox })}
+                    isClickable={withLightbox}
                   />
                 );
               })}
