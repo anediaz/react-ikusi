@@ -1,14 +1,12 @@
 import * as React from 'react';
 
 import _ from 'underscore';
-import {Loader} from '../Loader/Loader';
 import {Ligthbox} from '../Lightbox/Lightbox';
 import {
   defaultConfigurations, DEFAULT_COLS, DEFAULT_MARGIN, getChunks,
 } from './utils';
 
 import './gallery.css';
-import classnames from 'classnames';
 import { Picture } from './Picture';
 
 type NonEmptyArray<T> = [T, ...T[]];
@@ -68,21 +66,10 @@ export const Gallery = ({
   photos, configurations = defaultConfigurations, withLightbox = true, onClickPhoto = () => {},
 }:GalleryProps) => {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = React.useState(true);
   const [selectedImgIndex, setSelectedImgIndex] = React.useState<number | null>(null);
   const [configuration, setConfiguration] = React.useState<GalleryConfiguration>(
     getConfigurationForAGivenWidth(configurations, window.screen.width),
   );
-  const imagesRefs = React.useRef<(HTMLImageElement | null)[]>([])
-
-
-  // checks when all the images have been rendered to set isLoading state to false
-  React.useEffect(() => {
-    const notCompleted = imagesRefs.current.filter((ref) => !ref || !ref.complete);
-    if (!notCompleted.length) {
-      setIsLoading(false);
-    }
-  }, [imagesRefs]);
 
   // listens to dimensions of the component within Gallery is rendered
   // and resizes if needed, using the most appropriate configuration
@@ -154,7 +141,6 @@ export const Gallery = ({
   const chunks = getChunks(configuration, photos);
   return (
     <div ref={wrapperRef} onKeyDown={onKeyDown} tabIndex={0} className={MAIN_CLASS}>
-      {isLoading ? <Loader/> : null}
       {photos.length ? (
         <>
           {chunks.map((chunk, chunkIndex) => (chunk.lineHeight && (
