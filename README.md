@@ -13,9 +13,8 @@
 [storybook-url]: https://anediaz.github.io/react-ikusi/?path=/docs/react-ikusi--docs
 [storybook-image]: https://github.com/anediaz/react-ikusi/assets/17216937/48dfea53-4d6c-4d30-b2bf-6670ad9755af
 
-React photo displaying component library
-
--   Creates a masonry for image displaying
+A lightweight React responsive masonry component to display images.
+Built with CSS Flexbox:
 -   Supports row direction layout
 -   Configurable for different screen sizes
 -   Responsive
@@ -24,20 +23,26 @@ React photo displaying component library
 :bulb: The word **_ikusi_** from the package name react-ikusi means **_see_** in Basque language.
 Click [here](https://en.wikipedia.org/wiki/Basque_language) for more information.
 
-## Preview
+## Getting started
+You can download `react-ikusi` from the NPM registry via `npm` or
+`yarn`
+
+```shell
+yarn add react-ikusi
+npm install react-ikusi --save
+```
+## Demo
+See <a href="https://anediaz.github.io/react-ikusi/?path=/docs/react-ikusi--docs">react-ikusi Storybook</a>
+
+## Example
 
 Customizable configurations for different screen sizes
 | | |
 | ---------------------------------------------------------------------------------- | :------------------------------------------------------------------------------: |
 | <img src="https://live.staticflickr.com//65535//49596351782_fbf41d588f_n.jpg" alt="example"/> | <img src="https://live.staticflickr.com//65535//49595603383_d76c9a0d9a_n.png" alt="example"/> |
 
-## Installation
-
-```
-npm install react-ikusi
-```
-
-## Minimal Setup Example
+## Usage
+Here's the minimal setup example:
 
 ```jsx
 const photos = [
@@ -63,21 +68,22 @@ import Gallery from 'react-ikusi';
 <Gallery photos={photos} />;
 ```
 
-## API Documentation
+## Props
 
 ###
 
-<ins>**Details of props 'photos'**</ins>
+<ins>**Photo**</ins>
 
 | Name   | Description                                                   | Type   | Required |
 | ------ | ------------------------------------------------------------- | ------ | -------- |
+| id    | Unique identifier of the photo                                 | string | true     |
 | src    | Url source of the original photo                              | string | true     |
 | width  | Original width of the photo in pixels                         | number | true     |
 | height | Original height of the photo in pixels                        | number | true     |
 | bigSrc | Url source of the photo in big size (for Lightbox displaying) | string | false    |
 
 \
-<ins>**Details of props 'configurations'**</ins>
+<ins>**Configuration**</ins>
 
 It is an array which may contain multiple elements for different screen sizes.
 
@@ -92,7 +98,7 @@ It determines the number of elements to be displayed per row and their margin.
 
 \
 \
-An exemple of Gallery's layout :
+An example of Gallery layout :
 
 <img src="https://live.staticflickr.com//65535//49595136583_f326bc8ef5_n.jpg" width="45%" alt="layout"/> <img src="https://live.staticflickr.com//65535//49595636006_ce5a2e029a_n.jpg" width="45%" alt="layout"/>
 
