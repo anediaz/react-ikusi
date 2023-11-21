@@ -12,12 +12,16 @@ interface PictureProps{
 
 export const Picture = ({ src, id, onClick,isClickable
   }:PictureProps) => {
+    const [isLoaded,setIsLoaded] = React.useState(false);
     return (
+      <div className={`${MAIN_CLASS}`}>
         <img
           src={src}
           alt={`picture with id ${id}`}
           onClick={onClick}
-          className={classnames(MAIN_CLASS, {[`${MAIN_CLASS}--is-clickable`]: isClickable })}
-        />
+          className={classnames(`${MAIN_CLASS}__image`, {[`${MAIN_CLASS}__image--is-clickable`]: isClickable }, {[`${MAIN_CLASS}__image--is-loaded`]: isLoaded })}
+          onLoad={() => setIsLoaded(true)}
+       />
+        </div>
       );
   }

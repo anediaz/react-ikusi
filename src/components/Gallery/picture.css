@@ -1,16 +1,23 @@
 .gallery-picture {
-    height: 100%;
-    width: auto;
     display: flex;
     background-color: lightgray;
 }
 
-.gallery-picture:hover {
+.gallery-picture__image {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.gallery-picture__image--is-loaded {
+    opacity: 1;
+}
+
+.gallery-picture__image:hover {
     cursor: default;
     opacity: 1;
 }
   
-.gallery-picture--is-clickable:hover {
+.gallery-picture__image--is-clickable:hover {
     cursor: pointer;
     opacity: 0.5;
 }
