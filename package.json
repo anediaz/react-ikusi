@@ -25,9 +25,11 @@
     "react",
     "typescript",
     "masonry",
+    "css",
+    "flexbox",
+    "responsive",
     "gallery",
-    "pictures",
-    "responsive"
+    "pictures"
   ],
   "license": "ISC",
   "peerDependencies": {

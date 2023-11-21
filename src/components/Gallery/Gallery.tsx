@@ -12,10 +12,10 @@ import { Picture } from './Picture';
 type NonEmptyArray<T> = [T, ...T[]];
 
 interface Configuration {
-  maxWidth?:number;
-  minWidth?:number;
   cols:number;
   margin:number;
+  minWidth?:number;
+  maxWidth?:number;
 }
 
 export interface GalleryConfiguration extends Configuration {
@@ -26,11 +26,11 @@ export type NonEmptyPhotos = NonEmptyArray<PhotoProps>;
 export type NonEmptyConfigurations = NonEmptyArray<Configuration>;
 
 export interface PhotoProps {
-  src: string;
-  bigSrc?: string;
-  height: number;
-  width: number;
   id: string;
+  src: string;
+  width: number;
+  height: number;
+  bigSrc?: string;
 }
 
 export interface GalleryProps {
