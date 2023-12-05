@@ -1,4 +1,4 @@
-import { GalleryConfiguration, PhotoProps } from '../components/Gallery/Gallery';
+import { PhotoProps } from '../components/Gallery/Gallery';
 import { ChunkProps, getChunks } from '../components/Gallery/utils';
 
 let screenWidth = 2700;

@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import './picture.css';
 const MAIN_CLASS='gallery-picture'
 
-interface PictureProps{
+export interface PictureProps {
     src: string;
     id:string; 
     onClick:() => void;

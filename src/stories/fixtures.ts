@@ -1,15 +1,15 @@
 import { GalleryProps, ConfigurationProps } from '../components/Gallery/Gallery';
 import photos from './data';
 
-export const BasicArgs = {
+export const BasicArgs:GalleryProps = {
     photos,
     withLightbox:true
-} as GalleryProps;
+};
 
-export const NoLightboxArgs = {
+export const NoLightboxArgs:GalleryProps = {
    photos,
    withLightbox:false
-} as GalleryProps;
+};
 
 const configurations:ConfigurationProps[] = [
     { maxWidth: 340, cols: 3, margin: 1 },
@@ -17,7 +17,7 @@ const configurations:ConfigurationProps[] = [
     { minWidth: 1025, cols: 3, margin: 1 },
   ];
 
-export const SmallScreenGalleryArgs = {
+export const SmallScreenGalleryArgs:GalleryProps = {
     photos,
     withLightbox: true,
     configurations,
