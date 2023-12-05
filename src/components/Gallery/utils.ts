@@ -1,6 +1,6 @@
-import { GalleryConfiguration, NonEmptyConfigurations, PhotoProps } from "./Gallery";
+import { GalleryConfigurationProps, ConfigurationProps, PhotoProps } from "./Gallery";
 
-const defaultConfigurations: NonEmptyConfigurations = [
+const defaultConfigurations: ConfigurationProps[] = [
   { maxWidth: 340, cols: 4, margin: 1 },
   { maxWidth: 1024, cols: 6, margin: 1 },
   { minWidth: 1025, cols: 12, margin: 1 },
@@ -15,7 +15,7 @@ const DEFAULT_MARGIN = 1;
  * @param photosToLineHeight Photos to take into account in the line height calculation
  * @returns The line height all the given photos should have
  */
-const getLineHeight = (configuration:GalleryConfiguration, photosToLineHeight:PhotoProps[]):number => {
+const getLineHeight = (configuration:GalleryConfigurationProps, photosToLineHeight:PhotoProps[]):number => {
   const { width: screenWidth, cols, margin } = configuration;
   let ratioSum = 0;
   photosToLineHeight.forEach((p) => {
@@ -38,7 +38,7 @@ export interface ChunkProps{
  * @param photosToChunk The list of photos to display
  * @returns A list of chunks, each containing the amount of photos defined by 'cols', and the lineHeight for the line rendering
  */
-const getChunks = (configuration:GalleryConfiguration, photosToChunk:PhotoProps[]):ChunkProps[] => {
+const getChunks = (configuration:GalleryConfigurationProps, photosToChunk:PhotoProps[]):ChunkProps[] => {
   const newPhotos = [...photosToChunk];
   const chunks = [];
   while (newPhotos.length) {

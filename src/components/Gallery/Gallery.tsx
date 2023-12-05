@@ -9,21 +9,16 @@ import {
 import './gallery.css';
 import { Picture } from './Picture';
 
-type NonEmptyArray<T> = [T, ...T[]];
-
-interface Configuration {
+export interface ConfigurationProps {
   cols:number;
   margin:number;
   minWidth?:number;
   maxWidth?:number;
 }
 
-export interface GalleryConfiguration extends Configuration {
+export interface GalleryConfigurationProps extends ConfigurationProps {
   width: number;
 }
-
-export type NonEmptyPhotos = NonEmptyArray<PhotoProps>;
-export type NonEmptyConfigurations = NonEmptyArray<Configuration>;
 
 export interface PhotoProps {
   id: string;
@@ -34,9 +29,9 @@ export interface PhotoProps {
 }
 
 export interface GalleryProps {
-  configurations?: NonEmptyConfigurations;
+  configurations?: ConfigurationProps[];
   withLightbox?:boolean;
-  photos: NonEmptyPhotos;
+  photos: PhotoProps[];
   onClickPhoto?: (id:string) => void
 }
 
@@ -46,7 +41,7 @@ export interface GalleryProps {
  * @param width The width where Gallery will be rendered
  * @returns A Configuration
  */
-const getConfigurationForAGivenWidth = (configurations:Configuration[], width:number):GalleryConfiguration => {
+const getConfigurationForAGivenWidth = (configurations:ConfigurationProps[], width:number):GalleryConfigurationProps => {
   const propsConfiguration = configurations.find(
     ({ minWidth, maxWidth }) => ((minWidth && minWidth <= width) || !minWidth)
       && ((maxWidth && maxWidth >= width) || !maxWidth),
@@ -67,7 +62,7 @@ export const Gallery = ({
 }:GalleryProps) => {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const [selectedImgIndex, setSelectedImgIndex] = React.useState<number | null>(null);
-  const [configuration, setConfiguration] = React.useState<GalleryConfiguration>(
+  const [configuration, setConfiguration] = React.useState<GalleryConfigurationProps>(
     getConfigurationForAGivenWidth(configurations, window.screen.width),
   );
 
