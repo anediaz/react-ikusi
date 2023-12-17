@@ -8,7 +8,7 @@ import './lightbox.css';
 
 const MAIN_CLASS = 'lightbox';
 
-interface LightBoxProps {
+export interface LightBoxProps {
   img: string;
   id: string;
   onClose: () => void;

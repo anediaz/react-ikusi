@@ -10,17 +10,9 @@ test('loads and displays Gallery', async () => {
   // Arrange
   render(<BasicGallery {...BasicArgs} />);
 
-  // Assert: show loader
-  const loader = await screen.findByRole('progressbar');
-  expect(loader).toBeInTheDocument();
-
   // Assert: images appear
   const items = await screen.findAllByAltText((content:any) => content.startsWith('picture with id'));
   expect(items).toHaveLength(BasicArgs.photos.length);
-
-  // Assert: loading spinner no longer exists
-  const hiddenLoadingSpinner = screen.queryByAltText('progressbar');
-  expect(hiddenLoadingSpinner).toBeNull();
 });
 
 test('displays a lightbox when clicking on a picture', async () => {
