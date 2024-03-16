@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 7
+  version: 6
   cacheKey: 9
 
 "@aashutoshrathi/word-wrap@npm:^1.2.3":
@@ -10219,12 +10219,12 @@ __metadata:
   linkType: hard
 
 "follow-redirects@npm:^1.0.0":
-  version: 1.15.3
-  resolution: "follow-redirects@npm:1.15.3"
+  version: 1.15.6
+  resolution: "follow-redirects@npm:1.15.6"
   peerDependenciesMeta:
     debug:
       optional: true
-  checksum: bbdd012afa48de9d20ab9547a06b8f2150690b58e4cc60d8125b1f615750b7c9152953bb05a6f27371dc137459ad71fbba7eb3243b18b83280c805bcb217eb33
+  checksum: 8/a62c378dfc8c00f60b9c80cab158ba54e99ba0239a5dd7c81245e5a5b39d10f0c35e249c3379eae719ff0285fff88c365dd446fab19dee771f1d76252df1bbf5
   languageName: node
   linkType: hard
 
@@ -10444,9 +10444,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@npm%3A^2.3.2#optional!builtin<compat/fsevents>, fsevents@patch:fsevents@npm%3A~2.3.2#optional!builtin<compat/fsevents>":
+"fsevents@patch:fsevents@npm%3A^2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@npm%3A~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.3
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.3#optional!builtin<compat/fsevents>::version=2.3.3&hash=df0bf1"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.3#~builtin<compat/fsevents>::version=2.3.3&hash=df0bf1"
   dependencies:
     node-gyp: "npm:latest"
   conditions: os=darwin
@@ -16547,62 +16547,62 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "react-ikusi@workspace:."
   dependencies:
-    "@babel/cli": "npm:^7.12.16"
-    "@babel/core": "npm:^7.12.16"
-    "@babel/plugin-transform-runtime": "npm:^7.13.15"
-    "@babel/preset-env": "npm:^7.12.16"
-    "@babel/preset-react": "npm:^7.12.13"
-    "@babel/preset-typescript": "npm:^7.23.2"
-    "@rollup/plugin-babel": "npm:^5.3.0"
-    "@rollup/plugin-commonjs": "npm:^25.0.7"
-    "@rollup/plugin-node-resolve": "npm:^15.2.3"
-    "@rollup/plugin-typescript": "npm:^11.1.5"
-    "@rollup/plugin-url": "npm:^6.0.0"
-    "@storybook/addon-actions": "npm:^7.5.1"
-    "@storybook/addon-docs": "npm:^7.5.2"
-    "@storybook/addon-essentials": "npm:^7.5.1"
-    "@storybook/addon-interactions": "npm:^7.5.1"
-    "@storybook/addon-links": "npm:^7.5.1"
-    "@storybook/addon-mdx-gfm": "npm:^7.5.1"
-    "@storybook/blocks": "npm:^7.5.1"
-    "@storybook/react": "npm:^7.5.1"
-    "@storybook/react-webpack5": "npm:^7.5.1"
-    "@svgr/rollup": "npm:^8.1.0"
-    "@svgr/webpack": "npm:^8.1.0"
-    "@testing-library/dom": "npm:^9.3.3"
-    "@testing-library/jest-dom": "npm:^6.1.4"
-    "@testing-library/react": "npm:^14.0.0"
-    "@types/jest": "npm:^29.5.7"
-    "@types/node": "npm:^20.8.10"
-    "@types/react": "npm:^18.2.34"
-    "@types/react-dom": "npm:^18.2.14"
-    "@types/underscore": "npm:^1.11.12"
-    babel-loader: "npm:8.1.0"
-    classnames: "npm:^2.3.2"
-    eslint: "npm:^8.52.0"
-    eslint-config-airbnb: "npm:^18.2.1"
-    eslint-plugin-import: "npm:^2.22.1"
-    eslint-plugin-jest-dom: "npm:^3.8.1"
-    eslint-plugin-jsx-a11y: "npm:^6.4.1"
-    eslint-plugin-react: "npm:^7.33.2"
-    eslint-plugin-react-hooks: "npm:^4.6.0"
-    eslint-plugin-storybook: "npm:^0.6.15"
-    eslint-plugin-testing-library: "npm:^6.1.0"
-    eslint-plugin-unused-imports: "npm:^3.0.0"
-    jest: "npm:^29.7.0"
-    prettier: "npm:^2.2.1"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    react-scripts: "npm:^5.0.1"
-    rollup: "npm:^2.39.0"
-    rollup-plugin-delete: "npm:^2.0.0"
-    rollup-plugin-dts: "npm:^6.1.0"
-    rollup-plugin-peer-deps-external: "npm:^2.2.4"
-    rollup-plugin-postcss: "npm:^4.0.2"
-    rollup-plugin-terser: "npm:^7.0.2"
-    storybook: "npm:^7.5.1"
-    typescript: "npm:^5.2.2"
-    underscore: "npm:^1.13.6"
+    "@babel/cli": ^7.12.16
+    "@babel/core": ^7.12.16
+    "@babel/plugin-transform-runtime": ^7.13.15
+    "@babel/preset-env": ^7.12.16
+    "@babel/preset-react": ^7.12.13
+    "@babel/preset-typescript": ^7.23.2
+    "@rollup/plugin-babel": ^5.3.0
+    "@rollup/plugin-commonjs": ^25.0.7
+    "@rollup/plugin-node-resolve": ^15.2.3
+    "@rollup/plugin-typescript": ^11.1.5
+    "@rollup/plugin-url": ^6.0.0
+    "@storybook/addon-actions": ^7.5.1
+    "@storybook/addon-docs": ^7.5.2
+    "@storybook/addon-essentials": ^7.5.1
+    "@storybook/addon-interactions": ^7.5.1
+    "@storybook/addon-links": ^7.5.1
+    "@storybook/addon-mdx-gfm": ^7.5.1
+    "@storybook/blocks": ^7.5.1
+    "@storybook/react": ^7.5.1
+    "@storybook/react-webpack5": ^7.5.1
+    "@svgr/rollup": ^8.1.0
+    "@svgr/webpack": ^8.1.0
+    "@testing-library/dom": ^9.3.3
+    "@testing-library/jest-dom": ^6.1.4
+    "@testing-library/react": ^14.0.0
+    "@types/jest": ^29.5.7
+    "@types/node": ^20.8.10
+    "@types/react": ^18.2.34
+    "@types/react-dom": ^18.2.14
+    "@types/underscore": ^1.11.12
+    babel-loader: 8.1.0
+    classnames: ^2.3.2
+    eslint: ^8.52.0
+    eslint-config-airbnb: ^18.2.1
+    eslint-plugin-import: ^2.22.1
+    eslint-plugin-jest-dom: ^3.8.1
+    eslint-plugin-jsx-a11y: ^6.4.1
+    eslint-plugin-react: ^7.33.2
+    eslint-plugin-react-hooks: ^4.6.0
+    eslint-plugin-storybook: ^0.6.15
+    eslint-plugin-testing-library: ^6.1.0
+    eslint-plugin-unused-imports: ^3.0.0
+    jest: ^29.7.0
+    prettier: ^2.2.1
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    react-scripts: ^5.0.1
+    rollup: ^2.39.0
+    rollup-plugin-delete: ^2.0.0
+    rollup-plugin-dts: ^6.1.0
+    rollup-plugin-peer-deps-external: ^2.2.4
+    rollup-plugin-postcss: ^4.0.2
+    rollup-plugin-terser: ^7.0.2
+    storybook: ^7.5.1
+    typescript: ^5.2.2
+    underscore: ^1.13.6
   peerDependencies:
     react: ^18.2.0
   languageName: unknown
@@ -17155,29 +17155,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@npm%3A^1.1.7#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.10.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.14.2#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.19.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.20.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.1#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.2#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.4#optional!builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^1.1.7#~builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.1#~builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.2#~builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.4#~builtin<compat/resolve>":
   version: 1.22.8
-  resolution: "resolve@patch:resolve@npm%3A1.22.8#optional!builtin<compat/resolve>::version=1.22.8&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.22.8#~builtin<compat/resolve>::version=1.22.8&hash=c3c19d"
   dependencies:
     is-core-module: "npm:^2.13.0"
     path-parse: "npm:^1.0.7"
     supports-preserve-symlinks-flag: "npm:^1.0.0"
   bin:
     resolve: bin/resolve
-  checksum: cee9035c5088dcd6f631dfbdc45b35f98750658e47e80b94fc89325bf7d288265b9c85cdd8105a313b0b3a3d617c3191f59e522daa031d7a823d338f90366d68
+  checksum: 8/5479b7d431cacd5185f8db64bfcb7286ae5e31eb299f4c4f404ad8aa6098b77599563ac4257cb2c37a42f59dfc06a1bec2bcf283bb448f319e37f0feb9a09847
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@npm%3A^2.0.0-next.4#optional!builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^2.0.0-next.4#~builtin<compat/resolve>":
   version: 2.0.0-next.5
-  resolution: "resolve@patch:resolve@npm%3A2.0.0-next.5#optional!builtin<compat/resolve>::version=2.0.0-next.5&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A2.0.0-next.5#~builtin<compat/resolve>::version=2.0.0-next.5&hash=c3c19d"
   dependencies:
     is-core-module: "npm:^2.13.0"
     path-parse: "npm:^1.0.7"
     supports-preserve-symlinks-flag: "npm:^1.0.0"
   bin:
     resolve: bin/resolve
-  checksum: 0ba4a52963d3aef7e56c499a697f6ab60a544e9538156ba64224d6d05b53fbfd8176b33b8ba91aaa3b47408c2643d25bafd869a6a30078380a7e59cafeae9de9
+  checksum: 8/064d09c1808d0c51b3d90b5d27e198e6d0c5dad0eb57065fd40803d6a20553e5398b07f76739d69cbabc12547058bec6b32106ea66622375fb0d7e8fca6a846c
   languageName: node
   linkType: hard
 
@@ -18956,13 +18956,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@^5.2.2#~builtin<compat/typescript>":
   version: 5.2.2
-  resolution: "typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=ad5954"
+  resolution: "typescript@patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=f3b441"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: b52454ea2b8ba479dd655c4e55ae57c1cec4af21c83c3aa9ab280879a53f3ef4314587b0cfe5e6dd0a082aca4409fef70d0763e762cd0a3e8b38ef70d1dbad67
+  checksum: 8/0f4da2f15e6f1245e49db15801dbee52f2bbfb267e1c39225afdab5afee1a72839cd86000e65ee9d7e4dfaff12239d28beaf5ee431357fcced15fb08583d72ca
   languageName: node
   linkType: hard
 
