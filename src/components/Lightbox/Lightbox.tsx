@@ -45,10 +45,10 @@ export const Ligthbox = ({
   const buttonClassName = `${contentClassName}_button-container`;
   const iconClassName = `${modalClassName}_icon-container`;
   return (
-    <div className={classnames(MAIN_CLASS, {[`${MAIN_CLASS}--is-not-active`]:!Boolean(img)})}>
+    <div className={classnames(MAIN_CLASS, {[`${MAIN_CLASS}--is-not-active`]:!Boolean(img)})} onClick={onClose}>
       {isLoading && <LoaderInline />}
       <div className={classnames(modalClassName,{[`${modalClassName}--is-loading`]: isLoading})}>
-        <div data-testid="close-button" className={iconClassName} onClick={() => onClose()}>
+        <div data-testid="close-button" className={iconClassName} onClick={onClose}>
           <CloseIcon name="close" />
         </div>
       </div>
