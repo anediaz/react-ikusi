@@ -25,15 +25,17 @@ export const Ligthbox = ({
     setIsLoading(false);
   };
 
-  const handleOnNext = () => {
-    if(onNext){
+  const handleOnNext = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (onNext) {
+      e.stopPropagation()
       onNext();
       setIsLoading(true);
     }
   };
 
-  const handleOnPrev = () => {
-    if(onPrev){
+  const handleOnPrev = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (onPrev) {
+      e.stopPropagation()
       onPrev();
       setIsLoading(true);
     }
@@ -54,13 +56,13 @@ export const Ligthbox = ({
       </div>
       <div className={classnames(contentClassName,{[`${contentClassName}--is-loading`]: isLoading})}>
         <div className={classnames(buttonClassName, {[`${buttonClassName}--is-enabled`]:Boolean(onPrev)})} data-testid="prev-button">
-          <div onClick={() => (handleOnPrev())} className={iconClassName}>
+          <div onClick={handleOnPrev} className={iconClassName}>
             <LeftIcon name="left" />
           </div>
         </div>
         <img src={img} className={classnames(imageClassName,{[`${imageClassName}--is-loading`]: isLoading})} alt={`lightbox of the selected picture with id ${id}`} onLoad={handleOnLoad} />
         <div className={classnames(buttonClassName, {[`${buttonClassName}--is-enabled`]:Boolean(onNext)})} data-testid="next-button">
-          <div onClick={() => (handleOnNext())} className={iconClassName}>
+          <div onClick={handleOnNext} className={iconClassName}>
             <RightIcon name="right" />
           </div>
         </div>
